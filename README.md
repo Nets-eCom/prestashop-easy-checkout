@@ -1,4 +1,4 @@
-# Nexi Payment Module for Prestashop
+# Nexi Checkout Payment Module for Prestashop
 
 Enhance your Prestashop store with the Nexi Checkout, a comprehensive solution for seamless payment integration.
 
@@ -34,7 +34,7 @@ Nexi provides support for both test and live accounts. For assistance, visit our
 ## For Developers
 
 ### Documentation
-For complete documentation, visit our [GitHub docs](https://github.com/Nets-eCom/shopware6-easy-checkout/tree/main-2.0.1/docs).
+For complete documentation, visit our [GitHub docs](https://github.com/Nets-eCom/).
 
 ### Setup & Testing
 
