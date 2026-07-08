@@ -1,0 +1,133 @@
+imports:
+  - { resource: ../common.yml }
+
+services:
+  _defaults:
+    public: true
+    autowire: true
+    autoconfigure: true
+
+  Nexi\Checkout\Hook\PaymentOption\HostedPaymentOptionBuilder:
+    arguments:
+      - '@nexi_checkout.context'
+
+  Nexi\Checkout\Helper\CartSignature: ~
+
+  Nexi\Checkout\Hook\PaymentOption\EmbeddedPaymentOptionBuilder:
+    arguments:
+      - '@nexi_checkout.context'
+      - '@Nexi\Checkout\Configuration\ConfigurationProvider'
+      - '@NexiCheckout\Factory\PaymentApiFactory'
+      - '@Nexi\Checkout\RequestBuilder\PaymentRequest'
+      - '@Nexi\Checkout\Helper\LanguageProvider'
+      - '@doctrine.orm.entity_manager'
+      - '@Nexi\Checkout\Helper\CartSignature'
+      - '@Nexi\Checkout\Repository\PaymentDetailsRepository'
+      - '@nexi_checkout.logger'
+
+  Nexi\Checkout\Service\PaymentMethodsConfigurationService:
+    arguments:
+      - '@PrestaShop\PrestaShop\Adapter\Configuration'
+
+  Nexi\Checkout\Hook\PaymentOptions:
+    arguments:
+      - '@nexi_checkout.context'
+      - '@nexi_checkout.module'
+      - '@Nexi\Checkout\Configuration\ConfigurationProvider'
+      - '@Nexi\Checkout\Hook\PaymentOption\EmbeddedPaymentOptionBuilder'
+      - '@Nexi\Checkout\Hook\PaymentOption\HostedPaymentOptionBuilder'
+      - '@Nexi\Checkout\Service\PaymentMethodsProvider'
+
+  Nexi\Checkout\Hook\NexiCheckoutScriptTagsRenderer:
+    arguments:
+      - '@Nexi\Checkout\Configuration\ConfigurationProvider'
+      - '@nexi_checkout.context'
+
+  Psr\Http\Client\ClientInterface:
+    class: Symfony\Component\HttpClient\Psr18Client
+
+  Psr\Http\Message\ServerRequestFactoryInterface:
+    class: Nyholm\Psr7\Factory\Psr17Factory
+
+  Psr\Http\Message\StreamFactoryInterface:
+    class: Nyholm\Psr7\Factory\Psr17Factory
+
+  nexi_checkout.dispatcher:
+    class: Symfony\Component\EventDispatcher\EventDispatcher
+    calls:
+      - [addSubscriber, ['@Nexi\Checkout\Subscriber\UpdateOrderReferenceOnOrderCreatedSubscriber']]
+
+  # Subscribers
+  Nexi\Checkout\Subscriber\UpdateOrderReferenceOnOrderCreatedSubscriber:
+    arguments:
+      - '@NexiCheckout\Factory\PaymentApiFactory'
+      - '@Nexi\Checkout\Configuration\ConfigurationProvider'
+      - '@nexi_checkout.context'
+      - '@nexi_checkout.logger'
+
+  # Webhooks
+  Nexi\Checkout\WebhookProcessor\WebhookProcessor:
+    arguments:
+      - !tagged_iterator nexi_checkout.webhook_processor
+
+  Nexi\Checkout\Security\WebhookVoter:
+    arguments:
+      - '@Nexi\Checkout\Configuration\ConfigurationProvider'
+      - '@request_stack'
+      - '@nexi_checkout.logger'
+
+  Nexi\Checkout\WebhookProcessor\Processor\CancelCreated:
+    arguments:
+      - '@Nexi\Checkout\Repository\PaymentDetailsRepository'
+      - '@PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository'
+      - '@nexi_checkout.logger'
+    tags:
+      - { name: 'nexi_checkout.webhook_processor' }
+
+  Nexi\Checkout\WebhookProcessor\Processor\RefundCompleted:
+    arguments:
+      - '@Nexi\Checkout\Repository\PaymentDetailsRepository'
+      - '@PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository'
+      - '@Nexi\Checkout\Fetcher\PaymentFetcher'
+      - '@nexi_checkout.logger'
+    tags:
+      - { name: 'nexi_checkout.webhook_processor' }
+
+  Nexi\Checkout\WebhookProcessor\Processor\ReservationCreated:
+    arguments:
+      - '@Nexi\Checkout\Repository\PaymentDetailsRepository'
+      - '@PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository'
+      - '@nexi_checkout.logger'
+    tags:
+      - { name: 'nexi_checkout.webhook_processor' }
+
+  Nexi\Checkout\WebhookProcessor\Processor\CheckoutCompleted:
+    arguments:
+      - '@Nexi\Checkout\Repository\PaymentDetailsRepository'
+      - '@Nexi\Checkout\Fetcher\PaymentFetcher'
+      - '@PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository'
+      - '@Nexi\Checkout\Order\OrderCreate'
+      - '@nexi_checkout.logger'
+    tags:
+      - { name: 'nexi_checkout.webhook_processor' }
+
+  Nexi\Checkout\WebhookProcessor\Processor\ChargeCreated:
+    arguments:
+      - '@Nexi\Checkout\Repository\PaymentDetailsRepository'
+      - '@PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository'
+      - '@Nexi\Checkout\Fetcher\PaymentFetcher'
+      - '@Nexi\Checkout\WebhookProcessor\Normalizer\ChargeDataNormalizer'
+      - '@doctrine.orm.entity_manager'
+      - '@nexi_checkout.logger'
+    tags:
+      - { name: 'nexi_checkout.webhook_processor' }
+
+  # Order
+  Nexi\Checkout\Order\OrderCreate:
+    arguments:
+      - '@nexi_checkout.module'
+      - '@Nexi\Checkout\Repository\PaymentDetailsRepository'
+      - '@doctrine.orm.default_entity_manager'
+      - '@nexi_checkout.dispatcher'
+
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="ModulesNexicheckoutEmails.xlf" source-language="en-US" target-language="da-DK" datatype="plaintext">
+    <body>
+      <trans-unit id="email-greeting">
+        <source>Hi {firstname} {lastname},</source>
+        <target>Hi {firstname} {lastname},</target>
+      </trans-unit>
+      <trans-unit id="email-order-id">
+        <source>Order ID {order_name}</source>
+        <target>Order ID {order_name}</target>
+      </trans-unit>
+      <trans-unit id="payment-cancelled-title">
+        <source>Payment canceled</source>
+        <target>Payment canceled</target>
+      </trans-unit>
+      <trans-unit id="payment-cancelled-body">
+        <source>Your payment for order [1]{order_name}[/1] from [1]{shop_name}[/1] has been canceled.</source>
+        <target>Your payment for order [1]{order_name}[/1] from [1]{shop_name}[/1] has been canceled.</target>
+      </trans-unit>
+      <trans-unit id="payment-charged-partially-title">
+        <source>Payment partially charged</source>
+        <target>Payment partially charged</target>
+      </trans-unit>
+      <trans-unit id="payment-charged-partially-body">
+        <source>Your payment for order [1]{order_name}[/1] from [1]{shop_name}[/1] has been partially charged.</source>
+        <target>Your payment for order [1]{order_name}[/1] from [1]{shop_name}[/1] has been partially charged.</target>
+      </trans-unit>
+      <trans-unit id="payment-refunded-partially-title">
+        <source>Payment partially refunded</source>
+        <target>Payment partially refunded</target>
+      </trans-unit>
+      <trans-unit id="payment-refunded-partially-body">
+        <source>Your payment for order [1]{order_name}[/1] from [1]{shop_name}[/1] has been partially refunded.</source>
+        <target>Your payment for order [1]{order_name}[/1] from [1]{shop_name}[/1] has been partially refunded.</target>
+      </trans-unit>
+      <trans-unit id="email-order-history-label">
+        <source>Order history and details</source>
+        <target>Order history and details</target>
+      </trans-unit>
+      <trans-unit id="email-order-history-body">
+        <source>Follow your order and download your invoice on our store, go to the &lt;a href=&quot;{history_url}&quot; target=&quot;_blank&quot;&gt;%order_history_label%&lt;/a&gt; section of your customer account.</source>
+        <target>Follow your order and download your invoice on our store, go to the &lt;a href=&quot;{history_url}&quot; target=&quot;_blank&quot;&gt;%order_history_label%&lt;/a&gt; section of your customer account.</target>
+      </trans-unit>
+      <trans-unit id="email-guest-tracking-label">
+        <source>Guest Tracking</source>
+        <target>Guest Tracking</target>
+      </trans-unit>
+      <trans-unit id="email-guest-tracking-body">
+        <source>If you have a guest account, you can follow your order via the &lt;a href=&quot;{guest_tracking_url}&quot; target=&quot;_blank&quot;&gt;%guest_tracking_label%&lt;/a&gt; section on our shop.</source>
+        <target>If you have a guest account, you can follow your order via the &lt;a href=&quot;{guest_tracking_url}&quot; target=&quot;_blank&quot;&gt;%guest_tracking_label%&lt;/a&gt; section on our shop.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

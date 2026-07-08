@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="ModulesNexicheckoutPayment.xlf" source-language="en-US" target-language="en-US" datatype="plaintext">
+    <body>
+      <trans-unit id="payment-method-card">
+        <source>Card</source>
+        <target>Card</target>
+      </trans-unit>
+      <trans-unit id="payment-method-paypal">
+        <source>PayPal</source>
+        <target>PayPal</target>
+      </trans-unit>
+      <trans-unit id="payment-method-mobilepay">
+        <source>MobilePay</source>
+        <target>MobilePay</target>
+      </trans-unit>
+      <trans-unit id="payment-method-swish">
+        <source>Swish</source>
+        <target>Swish</target>
+      </trans-unit>
+      <trans-unit id="payment-method-vipps">
+        <source>Vipps</source>
+        <target>Vipps</target>
+      </trans-unit>
+      <trans-unit id="payment-method-applepay">
+        <source>Apple Pay</source>
+        <target>Apple Pay</target>
+      </trans-unit>
+      <trans-unit id="payment-method-googlepay">
+        <source>Google Pay</source>
+        <target>Google Pay</target>
+      </trans-unit>
+      <trans-unit id="payment-method-klarna">
+        <source>Klarna</source>
+        <target>Klarna</target>
+      </trans-unit>
+      <trans-unit id="payment-method-trustly">
+        <source>Trustly</source>
+        <target>Trustly</target>
+      </trans-unit>
+      <trans-unit id="payment-method-easyinvoice">
+        <source>EasyInvoice</source>
+        <target>Easy Invoice</target>
+      </trans-unit>
+      <trans-unit id="payment-method-easycampaign">
+        <source>EasyCampaign</source>
+        <target>Easy Campaign</target>
+      </trans-unit>
+      <trans-unit id="payment-method-easyinstallment">
+        <source>EasyInstallment</source>
+        <target>Easy Installments</target>
+      </trans-unit>
+      <trans-unit id="payment-method-ratepayinvoice">
+        <source>RatePayInvoice</source>
+        <target>RatePay Invoice</target>
+      </trans-unit>
+      <trans-unit id="payment-method-ratepayinstallment">
+        <source>RatePayInstallment</source>
+        <target>RatePay Installments</target>
+      </trans-unit>
+      <trans-unit id="payment-method-ratepaysepa">
+        <source>RatePaySepa</source>
+        <target>RatePay SEPA</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

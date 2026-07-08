@@ -1,20 +1,44 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Nexi Payment Module for Prestashop
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Enhance your Prestashop store with the Nexi Checkout, a comprehensive solution for seamless payment integration.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+---
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Requirements
+
+- **Prestashop Version**: Compatible with Prestashop **8.2 and above**.
+
+> **Note:** For Prestashop versions **1.7.x** and **8.0.x**  (e.g., 1.7.8.11, 8.1.7), please use the [Nets Easy Payment Module for Prestashop 1.7](https://github.com/Nets-eCom/Prestashop1.7_NetsEasy).
+
+---
+
+## Key Features
+
+### Shop Features
+
+- Seamless checkout experience with multiple payment options
+
+### Administration Features
+
+- Quick setup and flexible configuration
+- Intuitive order management with synchronized payment status via webhooks
+- Refund and capture capabilities with item-level control
+
+## Customer Service
+
+Nexi provides support for both test and live accounts. For assistance, visit our [Support Page](https://developer.nexigroup.com/nexi-checkout/en-EU/support/).
+
+---
+
+## For Developers
+
+### Documentation
+For complete documentation, visit our [GitHub docs](https://github.com/Nets-eCom/shopware6-easy-checkout/tree/main-2.0.1/docs).
+
+### Setup & Testing
+
+
+### API
+
+- Access the [Nexi API Reference](https://developer.nexigroup.com/nexi-checkout/en-EU/api/).

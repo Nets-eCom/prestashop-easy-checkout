@@ -1,0 +1,32 @@
+nexi_checkout_configuration_form:
+  path: /nexicheckout/configuration
+  methods: [GET, POST]
+  defaults:
+    _controller: 'Nexi\Checkout\Controller\Admin\NexiConfigurationController::configurationForm'
+    # Needed to work with tab system
+    _legacy_controller: AdminNexiCheckout
+    _legacy_link: AdminNexiCheckout
+
+nexi_checkout_order_cancel:
+  path: /nexicheckout/order/{orderId}/cancel
+  methods: [POST]
+  defaults:
+    _controller: 'Nexi\Checkout\Controller\Admin\NexiOrderActionController::cancel'
+
+nexi_checkout_order_charge:
+  path: /nexicheckout/order/{orderId}/charge
+  methods: [POST]
+  defaults:
+    _controller: 'Nexi\Checkout\Controller\Admin\NexiOrderActionController::charge'
+
+nexi_checkout_payment_details:
+  path: /nexicheckout/order/{orderId}/details
+  methods: [GET]
+  defaults:
+    _controller: 'Nexi\Checkout\Controller\Admin\NexiOrderActionController::paymentDetails'
+
+nexi_checkout_order_refund:
+  path: /nexicheckout/order/{orderId}/refund
+  methods: [POST]
+  defaults:
+    _controller: 'Nexi\Checkout\Controller\Admin\NexiOrderActionController::refund'

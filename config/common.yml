@@ -1,0 +1,140 @@
+services:
+  _defaults:
+    public: true
+    autowire: true
+    autoconfigure: true
+
+  nexi_checkout.logger:
+    class: Monolog\Logger
+    arguments:
+      - 'nexi_checkout'
+    calls:
+      - [pushHandler, ['@nexi_checkout.logger.handler']]
+
+  nexi_checkout.logger.handler:
+    class: Monolog\Handler\StreamHandler
+    arguments:
+      - '%kernel.project_dir%/var/logs/nexi_checkout.log'
+      - "@=parameter('kernel.debug') ? constant('Monolog\\\\Logger::DEBUG') : constant('Monolog\\\\Logger::INFO')"
+
+  nexi_checkout.context:
+    class: \Context
+    factory: [ '@PrestaShop\PrestaShop\Adapter\LegacyContext', 'getContext' ]
+
+  Context: '@nexi_checkout.context'
+
+  nexi_checkout.module:
+    class: Nexi_Checkout
+    factory: ['Module', 'getInstanceByName']
+    arguments:
+      - !php/const Nexi_Checkout::MODULE_NAME
+
+  Nexi_Checkout: '@nexi_checkout.module'
+
+  Nexi\Checkout\Helper\LanguageProvider: ~
+
+  Nexi\Checkout\Configuration\ConfigurationProvider:
+    arguments:
+      - '@PrestaShop\PrestaShop\Adapter\Configuration'
+
+  Nexi\Checkout\Hook\ActionListMailThemesHandler: ~
+
+  Nexi\Checkout\Hook\ActionEmailSendBeforeHandler: ~
+
+  # SDK
+  NexiCheckout\Factory\Provider\HttpClientConfigurationProvider:
+    configurator: ['@Nexi\Checkout\Http\HttpClientProviderConfigurator', 'configure']
+
+  Nexi\Checkout\Http\HttpClientProviderConfigurator:
+    arguments:
+      - '@NexiCheckout\Factory\Provider\HttpClientConfigurationProvider'
+
+  NexiCheckout\Factory\HttpClientFactory:
+    arguments:
+      - '@Psr\Http\Client\ClientInterface'
+      - '@Psr\Http\Message\ServerRequestFactoryInterface'
+      - '@Psr\Http\Message\StreamFactoryInterface'
+
+  NexiCheckout\Factory\PaymentApiFactory:
+    arguments:
+      - '@NexiCheckout\Factory\HttpClientFactory'
+      - '@NexiCheckout\Factory\Provider\HttpClientConfigurationProvider'
+
+  # Request Builders
+  Nexi\Checkout\Helper\FormatHelper: ~
+
+  Nexi\Checkout\RequestBuilder\PaymentRequest\AddressBuilder: ~
+
+  Nexi\Checkout\RequestBuilder\PaymentRequest\PhoneNumberBuilder: ~
+
+  Nexi\Checkout\RequestBuilder\PaymentRequest\CustomerBuilder:
+    arguments:
+      - '@Nexi\Checkout\RequestBuilder\PaymentRequest\AddressBuilder'
+      - '@Nexi\Checkout\RequestBuilder\PaymentRequest\PhoneNumberBuilder'
+
+  Nexi\Checkout\RequestBuilder\PaymentRequest\ItemsBuilder:
+    arguments:
+      - '@Nexi\Checkout\Helper\FormatHelper'
+      - '@nexi_checkout.context'
+      - '@nexi_checkout.logger'
+
+  Nexi\Checkout\RequestBuilder\PaymentRequest\CheckoutBuilder:
+    arguments:
+      - '@Nexi\Checkout\Configuration\ConfigurationProvider'
+      - '@Nexi\Checkout\RequestBuilder\PaymentRequest\CustomerBuilder'
+      - '@nexi_checkout.context'
+
+  Nexi\Checkout\RequestBuilder\PaymentRequest\NotificationBuilder:
+    arguments:
+      - '@Nexi\Checkout\Configuration\ConfigurationProvider'
+      - '@nexi_checkout.context'
+
+  Nexi\Checkout\RequestBuilder\PaymentRequest:
+    arguments:
+      - '@Nexi\Checkout\RequestBuilder\PaymentRequest\CheckoutBuilder'
+      - '@Nexi\Checkout\RequestBuilder\PaymentRequest\ItemsBuilder'
+      - '@Nexi\Checkout\RequestBuilder\PaymentRequest\NotificationBuilder'
+      - '@Nexi\Checkout\Helper\FormatHelper'
+
+  # Repository
+  PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository:
+    arguments:
+      - '@doctrine.dbal.default_connection'
+      - '%database_prefix%'
+
+  Nexi\Checkout\Repository\PaymentDetailsRepository:
+    factory: [ '@doctrine.orm.default_entity_manager', getRepository ]
+    arguments:
+      - Nexi\Checkout\Entity\NexiCheckoutPaymentDetails
+    public: true
+
+  Nexi\Checkout\Fetcher\PaymentFetcherInterface: '@Nexi\Checkout\Fetcher\PaymentFetcher'
+
+  Nexi\Checkout\Fetcher\PaymentFetcher: ~
+
+  Nexi\Checkout\Order\Provider\PaymentApiProvider: ~
+
+  NexiCheckout\Api\PaymentApi:
+    factory: ['@Nexi\Checkout\Order\Provider\PaymentApiProvider', 'createPaymentApi']
+
+  Nexi\Checkout\WebhookProcessor\Normalizer\ChargeDataNormalizer: ~
+
+  Nexi\Checkout\Fetcher\PaymentMethodsFetcherInterface: '@Nexi\Checkout\Fetcher\CachedPaymentMethodsFetcher'
+
+  Nexi\Checkout\Fetcher\PaymentMethodsFetcher:
+    arguments:
+      - '@Nexi\Checkout\Order\Provider\PaymentApiProvider'
+      - '@nexi_checkout.context'
+      - '@nexi_checkout.logger'
+
+  Nexi\Checkout\Fetcher\CachedPaymentMethodsFetcher:
+    decorates: Nexi\Checkout\Fetcher\PaymentMethodsFetcher
+    arguments:
+      $decorated: '@Nexi\Checkout\Fetcher\CachedPaymentMethodsFetcher.inner'
+      $context: '@nexi_checkout.context'
+
+  Nexi\Checkout\Service\PaymentMethodsProvider:
+    arguments:
+      - '@Nexi\Checkout\Fetcher\PaymentMethodsFetcherInterface'
+      - '@Nexi\Checkout\Service\PaymentMethodsConfigurationService'
+      - '@nexi_checkout.logger'

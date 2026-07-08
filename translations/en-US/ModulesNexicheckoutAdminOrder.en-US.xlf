@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="ModulesNexicheckoutAdminOrder.xlf" source-language="en-US" target-language="en-US" datatype="plaintext">
+    <body>
+      <trans-unit id="00672b9a27275cbd50750e8ae0135fb0">
+        <source>nexi-checkout-payment-component.cancel.button-action-title</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="9d73aea111226b01f0665aff4052c293">
+        <source>nexi-checkout-payment-component.cancel.button-title</source>
+        <target>Cancel payment</target>
+      </trans-unit>
+      <trans-unit id="525ea2806b8a5a8ac06d3fff19dbcfd3">
+        <source>nexi-checkout-payment-component.cancel.confirm</source>
+        <target>Confirm</target>
+      </trans-unit>
+      <trans-unit id="7b8b9b8569d3664117f265bb6273dac7">
+        <source>nexi-checkout-payment-component.cancel.confirmation</source>
+        <target>You are about to cancel payment with amount of { amount }.</target>
+      </trans-unit>
+      <trans-unit id="f0d74f3e4b9fb0760ea272f9161a07a1">
+        <source>nexi-checkout-payment-component.cancel.title</source>
+        <target>Cancel (Nexi Checkout)</target>
+      </trans-unit>
+      <trans-unit id="31b7944913757c442bdc58d0565db29c">
+        <source>nexi-checkout-payment-component.payment-details.charged-amount</source>
+        <target>Charged amount</target>
+      </trans-unit>
+      <trans-unit id="af75210c808849ac7bae7a7816822a1a">
+        <source>nexi-checkout-payment-component.payment-details.title</source>
+        <target>Payment</target>
+      </trans-unit>
+      <trans-unit id="63b50664a9e93b4ea3e97d10a366efa8">
+        <source>nexi-checkout-payment-component.payment-details.history-link</source>
+        <target>Show Nexi Checkout Payment history</target>
+      </trans-unit>
+      <trans-unit id="179b9afcc726d588fac226c121e81232">
+        <source>nexi-checkout-payment-component.payment-details.order-amount</source>
+        <target>Order amount</target>
+      </trans-unit>
+      <trans-unit id="9a92b0052331bae295ff674afd6d0b74">
+        <source>nexi-checkout-payment-component.payment-details.refunded-amount</source>
+        <target>Refunded amount</target>
+      </trans-unit>
+      <trans-unit id="050fafc89090d8ed618ced8bfb05df8d">
+        <source>nexi-checkout-payment-component.payment-details.status-label</source>
+        <target>Payment status</target>
+      </trans-unit>
+      <trans-unit id="95d06033c1bdbf18bb93d49cb8004f2a">
+        <source>nexi-checkout-payment-component.payment-details.payment-id</source>
+        <target>Nexi Checkout payment ID</target>
+      </trans-unit>
+      <trans-unit id="308e0eb22e2454d9b87b313ebb6b25c9">
+        <source>nexi-checkout-payment-component.payment-details.payment-via</source>
+        <target>Payment via</target>
+      </trans-unit>
+      <trans-unit id="payment-method">
+        <source>nexi-checkout-payment-component.payment-details.payment-method</source>
+        <target>Payment method</target>
+      </trans-unit>
+      <trans-unit id="1db9c8b35cad1fda08e019eee4b29bbb">
+        <source>nexi-checkout-payment-component.payment-details.time-order</source>
+        <target>Time of payment</target>
+      </trans-unit>
+      <trans-unit id="86f42fafc4e32fbec00ce4377b49cc20">
+        <source>nexi-checkout-payment-component.payment-details.status.cancelled</source>
+        <target>Cancelled</target>
+      </trans-unit>
+      <trans-unit id="7f06adf17db4495274fee89c16eac3f4">
+        <source>nexi-checkout-payment-component.payment-details.status.charged</source>
+        <target>Charged</target>
+      </trans-unit>
+      <trans-unit id="befb2f0084c68b8d6eef13c6439fe198">
+        <source>nexi-checkout-payment-component.payment-details.status.new</source>
+        <target>New</target>
+      </trans-unit>
+      <trans-unit id="faa919445a704ca1007523f4e0e3373a">
+        <source>nexi-checkout-payment-component.payment-details.status.partially_charged</source>
+        <target>Partially charged</target>
+      </trans-unit>
+      <trans-unit id="c816809c4e7b5973a36e5fbe72fb7934">
+        <source>nexi-checkout-payment-component.payment-details.status.partially_refunded</source>
+        <target>Partially refunded</target>
+      </trans-unit>
+      <trans-unit id="816bbce378bbf1505a60052e23b474c9">
+        <source>nexi-checkout-payment-component.payment-details.status.pending_refund</source>
+        <target>Refund pending</target>
+      </trans-unit>
+      <trans-unit id="4236a5ed7d99f013cfda9551e2cf0288">
+        <source>nexi-checkout-payment-component.payment-details.status.refunded</source>
+        <target>Refunded</target>
+      </trans-unit>
+      <trans-unit id="22843dc9ff8d2b095f18547932d9427e">
+        <source>nexi-checkout-payment-component.payment-details.status.reserved</source>
+        <target>Reserved</target>
+      </trans-unit>
+      <trans-unit id="5a062744abfbb2dce2a33778abe4e98f">
+        <source>nexi-checkout-payment-component.payment-details.status.terminated</source>
+        <target>Terminated</target>
+      </trans-unit>
+      <trans-unit id="cf39bd52592f3d0d0e4e589aeabb4b13">
+        <source>nexi-checkout-payment-component.refund.title</source>
+        <target>Refund (Nexi Checkout payment plugin)</target>
+      </trans-unit>
+      <trans-unit id="85929a279f27d823ed076165df3267cc">
+        <source>nexi-checkout-payment-component.refund.button-title</source>
+        <target>Refund</target>
+      </trans-unit>
+      <trans-unit id="7f02be43942f6483fa883f0381f40d5d">
+        <source>nexi-checkout-payment-component.refund.max-refund-info</source>
+        <target>Max. refundable amount is:</target>
+      </trans-unit>
+      <trans-unit id="72201591a1e5b8c5b825b9bc7d685d83">
+        <source>nexi-checkout-payment-component.refund.info</source>
+        <target>You are about to initiate refund for order</target>
+      </trans-unit>
+      <trans-unit id="f3218c6ae2a3f01dd69934cbff67539d">
+        <source>nexi-checkout-payment-component.refund.input-label</source>
+        <target>Refund amount</target>
+      </trans-unit>
+      <trans-unit id="charge-title">
+        <source>nexi-checkout-payment-component.charge.title</source>
+        <target>Charge payment</target>
+      </trans-unit>
+      <trans-unit id="charge-description">
+        <source>nexi-checkout-payment-component.charge.description</source>
+        <target>You are about to initiate charge for order</target>
+      </trans-unit>
+      <trans-unit id="charge-button-title">
+        <source>nexi-checkout-payment-component.charge.button-title</source>
+        <target>Charge</target>
+      </trans-unit>
+      <trans-unit id="charge-loading">
+        <source>nexi-checkout-payment-component.charge.loading</source>
+        <target>Processing…</target>
+      </trans-unit>
+      <trans-unit id="charge-amount-label">
+        <source>nexi-checkout-payment-component.charge.amount-label</source>
+        <target>Charge amount</target>
+      </trans-unit>
+      <trans-unit id="charge-select-items">
+        <source>nexi-checkout-payment-component.charge.select-items</source>
+        <target>Select items to charge</target>
+      </trans-unit>
+      <trans-unit id="refund-select-items">
+        <source>nexi-checkout-payment-component.refund.select-items</source>
+        <target>Select items to refund</target>
+      </trans-unit>
+      <trans-unit id="charge-max-info">
+        <source>nexi-checkout-payment-component.charge.max-info</source>
+        <target>Maximum chargeable amount is:</target>
+      </trans-unit>
+      <trans-unit id="charge-table-qty">
+        <source>nexi-checkout-payment-component.charge.table.qty</source>
+        <target>Qty</target>
+      </trans-unit>
+      <trans-unit id="charge-table-item">
+        <source>nexi-checkout-payment-component.charge.table.item</source>
+        <target>Item</target>
+      </trans-unit>
+      <trans-unit id="charge-table-subtotal">
+        <source>nexi-checkout-payment-component.charge.table.subtotal</source>
+        <target>Subtotal</target>
+      </trans-unit>
+      <trans-unit id="charge-table-charge-qty">
+        <source>nexi-checkout-payment-component.charge.table.charge-qty</source>
+        <target>Charge qty</target>
+      </trans-unit>
+      <trans-unit id="refund-table-charge">
+        <source>nexi-checkout-payment-component.refund.table.charge</source>
+        <target>Charge</target>
+      </trans-unit>
+      <trans-unit id="refund-table-item">
+        <source>nexi-checkout-payment-component.refund.table.item</source>
+        <target>Item</target>
+      </trans-unit>
+      <trans-unit id="refund-table-qty">
+        <source>nexi-checkout-payment-component.refund.table.qty</source>
+        <target>Qty</target>
+      </trans-unit>
+      <trans-unit id="refund-table-unit">
+        <source>nexi-checkout-payment-component.refund.table.unit</source>
+        <target>Unit</target>
+      </trans-unit>
+      <trans-unit id="refund-table-refund-qty">
+        <source>nexi-checkout-payment-component.refund.table.refund-qty</source>
+        <target>Refund qty</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

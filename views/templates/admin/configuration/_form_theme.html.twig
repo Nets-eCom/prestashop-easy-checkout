@@ -1,0 +1,70 @@
+{#**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ *#}
+{% block sortable_payment_methods_widget %}
+    {% set type = type|default('textarea') %}
+    {{- block('textarea_widget') -}}
+
+    {% if payment_method_splitting_enabled|default(false) %}
+        <div id="payment-methods-container-wrapper" class="mt-2">
+            <div id="payment-methods-container">
+                {% if payment_methods is empty %}
+                    <div class="alert alert-info">
+                        <i class="material-icons">info</i>
+                        {{ 'No payment methods available. Please check your API credentials and reload the page.'|trans({}, 'Modules.Nexicheckout.AdminConfiguration') }}
+                    </div>
+                {% endif %}
+
+                {% if payment_methods is not empty %}
+                    <div class="alert alert-info mb-3">
+                        <i class="material-icons" style="font-size: 14px; vertical-align: middle;"></i>
+                        {{ 'Drag to reorder • Toggle to enable/disable'|trans({}, 'Modules.Nexicheckout.AdminConfiguration') }}
+                    </div>
+                    <ul class="payment-methods-list sortable" id="payment-methods-sortable">
+                        {% for method in payment_methods %}
+                            <li
+                                class="payment-method-item {{ method.enabled ? 'enabled' : 'disabled' }}"
+                                data-index="{{ loop.index0 }}"
+                                data-name="{{ method.name }}"
+                            >
+                                <span class="drag-handle">
+                                    <i class="material-icons">drag_indicator</i>
+                                </span>
+                                <span class="method-icon">
+                                    <img
+                                        src="{{ asset('../modules/nexi_checkout/views/img/payment-methods/' ~ method.name|lower ~ '.png') }}"
+                                        alt="{{ method.label }}"
+                                    >
+                                </span>
+                                <span class="method-name">{{ method.label }}</span>
+                                <div class="ps-switch">
+                                    <input
+                                        type="checkbox"
+                                        class="method-toggle"
+                                        data-index="{{ loop.index0 }}"
+                                        {{ method.enabled ? 'checked' : '' }}>
+                                    <span class="slide-button"></span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

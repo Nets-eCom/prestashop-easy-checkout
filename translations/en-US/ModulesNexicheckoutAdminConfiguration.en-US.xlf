@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="ModulesNexicheckoutAdminConfiguration.xlf" source-language="en-US" target-language="en-US" datatype="plaintext">
+    <body>
+      <trans-unit id="split-payment-mode">
+        <source>Payment method splitting</source>
+        <target>Payment method splitting</target>
+      </trans-unit>
+      <trans-unit id="split-payment-mode-help">
+        <source>When enabled, each payment method appears as a separate option at checkout. When disabled, all methods are shown in a single Nexi Checkout option.</source>
+        <target>When enabled, each payment method appears as a separate option at checkout. When disabled, all methods are shown in a single Nexi Checkout option.</target>
+      </trans-unit>
+      <trans-unit id="payment-methods">
+        <source>Payment Methods</source>
+        <target>Payment Methods</target>
+      </trans-unit>
+      <trans-unit id="payment-methods-help">
+        <source>Configure which payment methods are available and their display order (only active when payment method splitting is enabled)</source>
+        <target>Configure which payment methods are available and their display order (only active when payment method splitting is enabled)</target>
+      </trans-unit>
+      <trans-unit id="drag-to-reorder">
+        <source>Drag to reorder • Toggle to enable/disable</source>
+        <target>Drag to reorder • Toggle to enable/disable</target>
+      </trans-unit>
+      <trans-unit id="no-methods-available">
+        <source>No payment methods available. Please check your API credentials and reload the page.</source>
+        <target>No payment methods available. Please check your API credentials and reload the page.</target>
+      </trans-unit>
+      <trans-unit id="failed-to-fetch">
+        <source>Failed to fetch payment methods.</source>
+        <target>Failed to fetch payment methods.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

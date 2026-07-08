@@ -1,0 +1,126 @@
+trigger: none
+
+pr:
+  - main
+  - develop
+
+variables:
+  moduleName: nexi_checkout
+
+parameters:
+  - name: validateOnPhpVersion
+    type: string
+    default: 8.2
+
+pool:
+  vmImage: ubuntu-24.04
+
+stages:
+  - stage: Validate
+    displayName: 'Validate Stage'
+    jobs:
+      - job: Validate_Job
+        steps:
+          - script: |
+              sudo update-alternatives --set php /usr/bin/php${{ parameters.validateOnPhpVersion }}
+              php -version
+            displayName: 'Use PHP version ${{ parameters.validateOnPhpVersion }}'
+          - script: composer install --no-interaction --prefer-dist
+            workingDirectory: $(System.DefaultWorkingDirectory)
+            displayName: 'Composer install'
+          - script: |
+              find . -type f -name '*.php' ! -path './vendor/*' -print0 \
+                | xargs -0 -n 1 php -l | (! grep -Ev '^No syntax errors detected in ')
+            displayName: 'Run PHP lint'
+          - script: make cs-check
+            displayName: 'Run php-cs-fixer check'
+          - script: make rector-check
+            displayName: 'Run Rector'
+          - script: make phpunit
+            displayName: 'Run tests with PHPUnit'
+          - script: make license-check
+            displayName: 'Check license header'
+            continueOnError: true
+
+  - stage: BuildModule
+    displayName: Building the Module ZIP Package
+    condition: eq(variables['Build.Reason'], 'Manual')
+    jobs:
+      - job: BuildAndPackage
+        displayName: Building a zip package
+        condition: eq(variables['Build.Reason'], 'Manual')
+        steps:
+          - checkout: self
+            displayName: Downloading the module code
+          - script: composer install
+            displayName: 'Composer Install (Dev)'
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '24.x'
+            displayName: Use Node.js 24
+          - script: |
+              echo "Installing frontend dependencies..."
+              npm ci
+              echo "Building frontend assets..."
+              npm run build
+            workingDirectory: $(Build.SourcesDirectory)/frontend
+            displayName: 'Build frontend assets'
+          - script: |
+              $(Build.SourcesDirectory)/vendor/bin/header-stamp \
+                --license=$(Build.SourcesDirectory)/vendor/prestashop/header-stamp/assets/afl.txt \
+                --extensions=js
+            workingDirectory: $(Build.SourcesDirectory)/views/js
+            displayName: 'Apply license to JS assets'
+          - script: |
+              echo "Fixing license year in chunk-vendors.js..."
+              sed -i 's/2014-//g' $(Build.SourcesDirectory)/views/js/chunk-vendors.js
+            displayName: 'Fix License Year in JS'
+          - script: |
+              echo "Vendor cleaning and installing production dependencies (--no-dev)..."
+              rm -rf vendor
+              composer install --no-dev --optimize-autoloader
+            displayName: Composer Install (Production)
+          - script: |
+              sed -i "s/COMMERCE_PLATFORM_TAG = 'Prestashop';/COMMERCE_PLATFORM_TAG = 'Prestashop_m';/g" ./nexi_checkout.php
+            displayName: 'Add Prestashop Marketplace Data'
+          - script: |
+              echo "Removing development files in the source directory..."
+              rm -rf \
+                frontend \
+                node_modules \
+                _dev \
+                .git \
+                tests \
+                .browserlistrc \
+                .eslintrc.js \
+                .postcssrc.js \
+                babel.config.js \
+                vue.config.js \
+                package.json \
+                package-lock.json \
+                .php_cs.dist \
+                .gitlab-ci.yml \
+                .editorconfig \
+                Makefile \
+                docker-compose.yml \
+                .gitignore \
+                composer.phar \
+                rector.php \
+                phpunit.xml.dist \
+                .phpunit.result.cache \
+                .php-cs-fixer.cache \
+                .php-cs-fixer.dist.php
+            displayName: Source Code Cleanup
+
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: '$(Build.SourcesDirectory)'
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/$(moduleName)'
+            displayName: Copying Clean Files to Staging
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)/$(moduleName)'
+              artifact: '$(moduleName)'
+              publishLocation: 'pipeline'
+            displayName: Publishing a package as an artifact

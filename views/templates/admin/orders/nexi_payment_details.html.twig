@@ -1,0 +1,96 @@
+{#**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ *#}
+<div
+  id="nexi-checkout-app"
+  data-details-endpoint="{{ path('nexi_checkout_payment_details', {orderId: orderId}) }}"
+  data-charge-endpoint="{{ path('nexi_checkout_order_charge', {orderId: orderId}) }}"
+  data-refund-endpoint="{{ path('nexi_checkout_order_refund', {orderId: orderId}) }}"
+  data-cancel-endpoint="{{ path('nexi_checkout_order_cancel', {orderId: orderId}) }}"
+>
+</div>
+
+<script>
+     window.nexi_checkout_translations = {
+          'nexi-checkout-payment-component': {
+               "payment-details": {
+                    "title": "{{ 'nexi-checkout-payment-component.payment-details.title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "history-link": "{{ 'nexi-checkout-payment-component.payment-details.history-link'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "order-amount": "{{ 'nexi-checkout-payment-component.payment-details.order-amount'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "payment-id": "{{ 'nexi-checkout-payment-component.payment-details.payment-id'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "payment-via": "{{ 'nexi-checkout-payment-component.payment-details.payment-via'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "payment-method": "{{ 'nexi-checkout-payment-component.payment-details.payment-method'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "charged-amount": "{{ 'nexi-checkout-payment-component.payment-details.charged-amount'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "refunded-amount": "{{ 'nexi-checkout-payment-component.payment-details.refunded-amount'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "status-label": "{{ 'nexi-checkout-payment-component.payment-details.status-label'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "time-order": "{{ 'nexi-checkout-payment-component.payment-details.time-order'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "status": {
+                         "cancelled": "{{ 'nexi-checkout-payment-component.payment-details.status.cancelled'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "charged": "{{ 'nexi-checkout-payment-component.payment-details.status.charged'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "new": "{{ 'nexi-checkout-payment-component.payment-details.status.new'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "partially_charged": "{{ 'nexi-checkout-payment-component.payment-details.status.partially_charged'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "partially_refunded": "{{ 'nexi-checkout-payment-component.payment-details.status.partially_refunded'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "pending_refund": "{{ 'nexi-checkout-payment-component.payment-details.status.pending_refund'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "refunded": "{{ 'nexi-checkout-payment-component.payment-details.status.refunded'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "reserved": "{{ 'nexi-checkout-payment-component.payment-details.status.reserved'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "terminated": "{{ 'nexi-checkout-payment-component.payment-details.status.terminated'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}"
+                    }
+               },
+               "cancel": {
+                  "button-action-title": "{{ 'nexi-checkout-payment-component.cancel.button-action-title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                  "button-title": "{{ 'nexi-checkout-payment-component.cancel.button-title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                  "confirm": "{{ 'nexi-checkout-payment-component.cancel.confirm'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                  "confirmation": "{{ 'nexi-checkout-payment-component.cancel.confirmation'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                  "title": "{{ 'nexi-checkout-payment-component.cancel.title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}"
+               },
+               "refund": {
+                    "title": "{{ 'nexi-checkout-payment-component.refund.title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "button-title": "{{ 'nexi-checkout-payment-component.refund.button-title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "max-refund-info": "{{ 'nexi-checkout-payment-component.refund.max-refund-info'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "info": "{{ 'nexi-checkout-payment-component.refund.info'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "input-label": "{{ 'nexi-checkout-payment-component.refund.input-label'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "select-items": "{{ 'nexi-checkout-payment-component.refund.select-items'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+
+                   "table": {
+                       "charge": "{{ 'nexi-checkout-payment-component.refund.table.charge'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                       "item": "{{ 'nexi-checkout-payment-component.refund.table.item'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                       "qty": "{{ 'nexi-checkout-payment-component.refund.table.qty'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                       "unit": "{{ 'nexi-checkout-payment-component.refund.table.unit'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                       "refund-qty": "{{ 'nexi-checkout-payment-component.refund.table.refund-qty'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}"
+                   }
+
+               },
+               "charge": {
+                    "button-title": "{{ 'nexi-checkout-payment-component.charge.button-title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "loading": "{{ 'nexi-checkout-payment-component.charge.loading'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "title": "{{ 'nexi-checkout-payment-component.charge.title'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "description": "{{ 'nexi-checkout-payment-component.charge.description'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "amount-label": "{{ 'nexi-checkout-payment-component.charge.amount-label'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "select-items": "{{ 'nexi-checkout-payment-component.charge.select-items'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                    "max-info": "{{ 'nexi-checkout-payment-component.charge.max-info'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+
+                    "table": {
+                         "qty": "{{ 'nexi-checkout-payment-component.charge.table.qty'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "item": "{{ 'nexi-checkout-payment-component.charge.table.item'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "subtotal": "{{ 'nexi-checkout-payment-component.charge.table.subtotal'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}",
+                         "charge-qty": "{{ 'nexi-checkout-payment-component.charge.table.charge-qty'|trans({}, 'Modules.Nexicheckout.AdminOrder') }}"
+                    }
+              }
+          }
+     }
+</script>

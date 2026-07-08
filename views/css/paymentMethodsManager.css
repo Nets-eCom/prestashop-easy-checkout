@@ -1,0 +1,193 @@
+/* Payment Methods Manager Styles */
+
+.payment-methods-toolbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.payment-methods-toolbar .btn {
+    margin-right: 10px;
+}
+
+.payment-methods-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.payment-method-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.2s ease;
+    cursor: move;
+}
+
+.payment-method-item:last-child {
+    border-bottom: none;
+}
+
+.payment-method-item.dragging {
+    opacity: 0.5;
+    background: #f0f0f0;
+}
+
+.payment-method-item.disabled {
+    opacity: 0.6;
+    background: #f9f9f9;
+}
+
+.payment-method-item.enabled {
+    opacity: 1;
+    background: #fff;
+}
+
+.payment-method-item:hover {
+    background: #f5f7fa;
+}
+
+.drag-handle {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+    color: #999;
+    cursor: grab;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.drag-handle .material-icons {
+    font-size: 20px;
+}
+
+.method-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    width: 50px;
+    height: 30px;
+}
+
+.method-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.method-name {
+    flex: 1;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Toggle Switch Styles - PrestaShop ps-switch style */
+.payment-method-item .ps-switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 24px;
+    margin: 0;
+}
+
+.payment-method-item .ps-switch input {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.payment-method-item .ps-switch input:disabled {
+    cursor: not-allowed;
+}
+
+.payment-method-item .ps-switch input:disabled ~ .slide-button {
+    opacity: 0.2;
+}
+
+.payment-method-item .ps-switch .slide-button {
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    display: block;
+    width: 36px;
+    height: 24px;
+    background: #bbcdd2;
+    transition: all 0.4s;
+    border-radius: 9999px;
+}
+
+.payment-method-item .ps-switch .slide-button::after {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    content: "";
+    background: #ffffff;
+    border-radius: 50%;
+    transition: all 0.4s;
+}
+
+#payment-methods-container .alert {
+    margin-bottom: 15px;
+}
+
+#payment-methods-container .alert .material-icons {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* Rotating animation for loading spinner */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.material-icons.rotating {
+    animation: rotate 1s linear infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .payment-method-item {
+        padding: 10px;
+    }
+
+    .method-icon {
+        width: 40px;
+        height: 25px;
+        margin-right: 10px;
+    }
+
+    .method-name {
+        font-size: 13px;
+    }
+
+    .payment-methods-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .payment-methods-toolbar .text-muted {
+        margin-left: 0 !important;
+        margin-top: 8px;
+    }
+}

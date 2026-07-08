@@ -1,0 +1,197 @@
+{#**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ *#}
+{% extends '@MailThemes/modern/components/layout.html.twig' %}
+
+{% block title %}{{ 'Payment partially charged'|trans({}, 'Modules.Nexicheckout.Emails', locale) }}{% endblock %}
+
+{% block content %}
+<!--[if mso | IE]><tr><td class="" width="604px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:604px;" width="604" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+<div style="margin:0px auto;max-width:604px;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="direction:{{ direction }};font-size:0px;padding:0 25px;text-align:center;">
+          <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:554px;" ><![endif]-->
+          <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:{{ align_left }};direction:{{ direction }};display:inline-block;vertical-align:top;width:100%;">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+              <tbody>
+                <tr>
+                  <td style="vertical-align:top;padding:0;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                      <tbody>
+                        <tr>
+                          <td align="{{ align_left }}" style="font-size:0px;padding:10px 25px;padding-top:0;padding-bottom:20px;word-break:break-word;">
+                            <div style="font-family:Open sans, arial, sans-serif;font-size:20px;font-weight:600;line-height:25px;text-align:{{ align_left }};color:#363A41;">{{ 'Hi {firstname} {lastname},'|trans({}, 'Modules.Nexicheckout.Emails', locale) }}</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="604px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:604px;" width="604" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+<div style="margin:0px auto;max-width:604px;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="direction:{{ direction }};font-size:0px;padding:0 50px 40px;text-align:{{ align_left }};">
+          <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:25px;" ><![endif]-->
+          <div class="mj-column-px-25 mj-outlook-group-fix" style="font-size:0px;text-align:{{ align_left }};direction:{{ direction }};display:inline-block;vertical-align:top;width:100%;">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+              <tbody>
+                <tr>
+                  <td align="center" class="left" style="font-size:0px;padding:10px 25px;padding-top:0;padding-right:0;padding-left:0;word-break:break-word;">
+                    <p style="border-top:solid 3px #505050;font-size:1px;margin:0px auto;width:25px;"></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+<!--[if mso | IE]><tr><td class="" width="604px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:604px;" width="604" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+<div style="margin:0px auto;max-width:604px;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="direction:{{ direction }};font-size:0px;padding:0 25px 0;text-align:center;">
+          <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:554px;" ><![endif]-->
+          <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:{{ align_left }};direction:{{ direction }};display:inline-block;vertical-align:top;width:100%;">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+              <tbody>
+                <tr>
+                  <td style="vertical-align:top;padding:0;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                      <tbody>
+                        <tr>
+                          <td align="{{ align_left }}" style="font-size:0px;padding:10px 25px;padding-top:0;padding-bottom:0;word-break:break-word;">
+                            <div style="font-family:Open sans, arial, sans-serif;font-size:16px;font-weight:600;line-height:25px;text-align:{{ align_left }};color:#363A41;">{{ 'Order ID {order_name}'|trans({}, 'Modules.Nexicheckout.Emails', locale) }} - {{ 'Payment partially charged'|trans({}, 'Modules.Nexicheckout.Emails', locale) }}</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+<!--[if mso | IE]><tr><td class="" width="604px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:604px;" width="604" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+<div style="margin:0px auto;max-width:604px;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="direction:{{ direction }};font-size:0px;padding:15px 50px 40px;text-align:center;">
+          <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:504px;" ><![endif]-->
+          <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:{{ align_left }};direction:{{ direction }};display:inline-block;vertical-align:top;width:100%;">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+              <tbody>
+                <tr>
+                  <td style="background-color:#fefefe;border:1px solid #DFDFDF;vertical-align:top;padding-top:10px;padding-bottom:10px;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                      <tbody>
+                        <tr>
+                          <td align="{{ align_left }}" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                            <div style="font-family:Open sans, arial, sans-serif;font-size:14px;line-height:25px;text-align:{{ align_left }};color:#363A41;">{{ 'Your payment for order [1]{order_name}[/1] from [1]{shop_name}[/1] has been partially charged.'|trans({'[1]': '<span class="label">', '[/1]': '</span>'}, 'Modules.Nexicheckout.Emails', locale)|raw }}</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+<!--[if mso | IE]><tr><td class="" width="604px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:604px;" width="604" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+<div style="margin:0px auto;max-width:604px;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="direction:{{ direction }};font-size:0px;padding:0 25px 20px;text-align:center;">
+          <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:554px;" ><![endif]-->
+          <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:{{ align_left }};direction:{{ direction }};display:inline-block;vertical-align:top;width:100%;">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+              <tbody>
+                <tr>
+                  <td align="{{ align_left }}" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                    <div style="font-family:Open sans, arial, sans-serif;font-size:14px;line-height:25px;text-align:{{ align_left }};color:#363A41;">{{ 'Follow your order and download your invoice on our store, go to the <a href="{history_url}" target="_blank">%order_history_label%</a> section of your customer account.'|trans({'%order_history_label%': 'Order history and details'|trans({}, 'Shop.Theme.Customeraccount', locale)}, 'Modules.Nexicheckout.Emails', locale)|raw }}</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+<!--[if mso | IE]><tr><td class="" width="604px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:604px;" width="604" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+<div style="margin:0px auto;max-width:604px;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="direction:{{ direction }};font-size:0px;padding:0 25px;text-align:center;">
+          <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:554px;" ><![endif]-->
+          <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:{{ align_left }};direction:{{ direction }};display:inline-block;vertical-align:top;width:100%;">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+              <tbody>
+                <tr>
+                  <td align="{{ align_left }}" style="font-size:0px;padding:10px 25px;padding-top:0;word-break:break-word;">
+                    <div style="font-family:Open sans, arial, sans-serif;font-size:14px;line-height:25px;text-align:{{ align_left }};color:#363A41;">{{ 'If you have a guest account, you can follow your order via the <a href="{guest_tracking_url}" target="_blank">%guest_tracking_label%</a> section on our shop.'|trans({'%guest_tracking_label%': 'Guest Tracking'|trans({}, 'Shop.Theme.Customeraccount', locale)}, 'Modules.Nexicheckout.Emails', locale)|raw }}</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+{% endblock %}

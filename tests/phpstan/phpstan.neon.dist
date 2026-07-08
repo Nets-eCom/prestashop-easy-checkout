@@ -1,0 +1,27 @@
+includes:
+  - %currentWorkingDirectory%/vendor/prestashop/php-dev-tools/phpstan/ps-module-extension.neon
+
+parameters:
+    paths:
+        - ../../
+
+    excludePaths:
+        - ../../vendor/
+        - ../../tests/
+        - ../../frontend/node_modules/
+
+    ignoreErrors:
+        - '#Property .+ has no typehint specified.#'
+        - '#Method .+ has no return typehint specified.#'
+        - '#Call to an undefined method Context::.+#'
+        - '#Deprecated in PHP 8.4.+#'
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::l\(\)#'
+        - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$context#'
+        - '#Parameter \#1 \$id_lang of method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) expects int, int\|null given#'
+        -
+            message: '#.*Property .*::\$id \(int\|null\) is never assigned int so it can be removed from the property type.*#'
+            path: ../../src/Entity/NexiCheckoutPaymentDetails.php
+
+    reportUnmatchedIgnoredErrors: false
+
+    level: 5

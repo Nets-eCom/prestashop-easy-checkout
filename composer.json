@@ -1,0 +1,45 @@
+{
+    "name": "nexi-checkout/prestashop-checkout",
+    "version": "2.0.0",
+    "description": "Nexi Checkout Secure Payment Module for Prestashop",
+    "type": "prestashop-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nexi|Nets"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "nexi-checkout/php-payment-sdk": "^0.10",
+        "giggsey/libphonenumber-for-php-lite": "^8.13"
+    },
+    "require-dev": {
+        "prestashop/php-dev-tools": "^5.0",
+        "prestashop/autoindex": "^2.1",
+        "prestashop/header-stamp": "^2.6",
+        "friendsofphp/php-cs-fixer": "^3.89",
+        "rector/rector": "^2.2",
+        "phpunit/phpunit": "^10.0",
+        "dg/bypass-finals": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nexi\\Checkout\\": "src/"
+        },
+        "classmap": [
+            "controllers",
+            "nexi_checkout.php"
+        ],
+        "exclude-from-classmap": []
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nexi\\Checkout\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "prepend-autoloader": false
+    }
+}

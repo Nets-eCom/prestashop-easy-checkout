@@ -1,0 +1,14 @@
+ 
+
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Order ID {order_name} - Payment canceled
+
+Your payment for order {order_name} from {shop_name} has been canceled.
+
+If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+Powered by [PrestaShop](https://www.prestashop-project.org/)

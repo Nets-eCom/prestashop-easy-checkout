@@ -1,0 +1,54 @@
+framework:
+  cache:
+    pools:
+      cache.nexi_checkout.payment:
+        adapter: cache.app
+
+imports:
+  - { resource: common.yml }
+
+services:
+  _defaults:
+    public: true
+    autowire: true
+    autoconfigure: true
+
+  Nexi\Checkout\:
+    resource: '../src/*'
+    exclude: 
+      - '../src/{Install,Uninstall,Entity,Repository,Event,*/Exception,Administration/Model,WebhookProcessor}/'
+      - '../src/Order/OrderCreate.php'
+      - '../src/**/index.php'
+
+  Nexi\Checkout\Controller\Admin\NexiOrderActionController:
+    arguments:
+      $logger: '@nexi_checkout.logger'
+
+  # Configuration form
+  Nexi\Checkout\Form\NexiConfigurationFormType:
+    parent: 'form.type.translatable.aware'
+    tags:
+      - { name: form.type }
+
+  Nexi\Checkout\Form\NexiConfigurationFormDataProvider:
+    arguments:
+      - '@Nexi\Checkout\Form\NexiConfigurationFormDataHandler'
+
+  Nexi\Checkout\Form\NexiConfigurationFormDataHandler:
+    arguments:
+      - '@prestashop.adapter.legacy.configuration'
+      - '@prestashop.adapter.shop.context'
+      - '@prestashop.adapter.multistore_feature'
+
+  prestashop.module.nexi_checkout.form.configuration_form_data_handler:
+    class: 'PrestaShop\PrestaShop\Core\Form\Handler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@Nexi\Checkout\Form\NexiConfigurationFormDataProvider'
+      - 'Nexi\Checkout\Form\NexiConfigurationFormType'
+      - 'NexiConfigurationForm'
+
+  Nexi\Checkout\Service\PaymentMethodsConfigurationService:
+    arguments:
+      - '@PrestaShop\PrestaShop\Adapter\Configuration'
