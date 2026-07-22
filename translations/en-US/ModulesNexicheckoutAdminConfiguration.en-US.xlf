@@ -30,6 +30,10 @@
         <source>Failed to fetch payment methods.</source>
         <target>Failed to fetch payment methods.</target>
       </trans-unit>
+      <trans-unit id="update-success">
+        <source>Successful update.</source>
+        <target>Successful update.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

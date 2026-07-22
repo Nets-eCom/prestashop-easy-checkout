@@ -73,7 +73,7 @@ class NexiOrderActionController extends PrestaShopAdminController
             if (!\Validate::isLoadedObject($order)) {
                 $this->addFlash(
                     'error',
-                    $this->trans('Order not found.', [], 'Admin.Notifications.Failed')
+                    $this->trans('Order not found.', [], 'Modules.Nexicheckout.AdminOrder')
                 );
 
                 return $this->json([
@@ -85,14 +85,14 @@ class NexiOrderActionController extends PrestaShopAdminController
 
             $this->addFlash(
                 'success',
-                $this->trans('Payment has been cancelled successfully.', [], 'Admin.Notifications.Success')
+                $this->trans('Payment has been cancelled successfully.', [], 'Modules.Nexicheckout.AdminOrder')
             );
 
             return $this->json([]);
         } catch (\Exception $exception) {
             return $this->handleErrorResponse(
                 $exception,
-                $this->trans('Payment has not been cancelled.', [], 'Admin.Notifications.Failed'),
+                $this->trans('Payment has not been cancelled.', [], 'Modules.Nexicheckout.AdminOrder'),
                 sprintf('Error cancelling payment for order %s.', $orderId),
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 ['orderId' => $orderId]
@@ -121,14 +121,14 @@ class NexiOrderActionController extends PrestaShopAdminController
 
             $this->addFlash(
                 'success',
-                $this->trans('Payment has been charged successfully.', [], 'Admin.Notifications.Success')
+                $this->trans('Payment has been charged successfully.', [], 'Modules.Nexicheckout.AdminOrder')
             );
 
             return $this->json([]);
         } catch (\LogicException|OrderChargeException|\Exception $exception) {
             return $this->handleErrorResponse(
                 $exception,
-                $this->trans('Payment has not been charged.', [], 'Admin.Notifications.Failed'),
+                $this->trans('Payment has not been charged.', [], 'Modules.Nexicheckout.AdminOrder'),
                 sprintf('Error charging payment for order %s.', $orderId),
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 ['orderId' => $orderId]
@@ -161,12 +161,12 @@ class NexiOrderActionController extends PrestaShopAdminController
 
             $this->addFlash(
                 'success',
-                $this->trans('Payment has been refunded successfully.', [], 'Admin.Notifications.Success')
+                $this->trans('Payment has been refunded successfully.', [], 'Modules.Nexicheckout.AdminOrder')
             );
         } catch (OrderRefundException $orderRefundException) {
             return $this->handleErrorResponse(
                 $orderRefundException,
-                $this->trans('Payment has not been refunded.', [], 'Admin.Notifications.Failed'),
+                $this->trans('Payment has not been refunded.', [], 'Modules.Nexicheckout.AdminOrder'),
                 sprintf('Error refunding payment for order %s.', $orderId->getValue()),
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 ['orderId' => $orderId]

@@ -103,7 +103,11 @@ final class NexiConfigurationFormDataHandler extends AbstractMultistoreConfigura
         $return['merchantTermsUrl'] = $this->configuration->get(self::MERCHANT_TERMS_URL, null, $shopConstraint);
         $return['webhookAuthorizationHeader'] = $this->configuration->get(self::WEBHOOK_AUTHORIZATION_HEADER, null, $shopConstraint);
         $return['paymentMethodSplitting'] = $this->configuration->get(self::PAYMENT_METHOD_SPLITTING, false, $shopConstraint);
-        $return['paymentMethods'] = json_encode(value: $this->paymentMethodsProvider->provide(null));
+        try {
+            $return['paymentMethods'] = json_encode(value: $this->paymentMethodsProvider->provide(null));
+        } catch (\Exception) {
+            $return['paymentMethods'] = json_encode(value: []);
+        }
 
         return $return;
     }

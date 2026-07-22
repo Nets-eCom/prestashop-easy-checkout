@@ -83,13 +83,13 @@ class PaymentOptions
 
         if ($isEmbedded) {
             return array_map(
-                $this->embeddedPaymentOptionBuilder->buildForMethod(...),
+                fn (array $method) => $this->embeddedPaymentOptionBuilder->buildForMethod($method),
                 $enabledMethods
             );
         }
 
         return array_map(
-            $this->hostedPaymentOptionBuilder->buildForMethod(...),
+            fn (array $method) => $this->hostedPaymentOptionBuilder->buildForMethod($method),
             $enabledMethods
         );
     }

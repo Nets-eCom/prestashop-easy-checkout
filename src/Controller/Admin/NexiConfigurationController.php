@@ -69,7 +69,7 @@ class NexiConfigurationController extends PrestaShopAdminController
             return $this->renderConfigurationForm($configurationForm, $paymentMethodsProvider);
         }
 
-        $this->addFlash('success', $this->trans('Successful update.', [], 'Admin.Notifications.Success'));
+        $this->addFlash('success', $this->trans('Successful update.', [], 'Modules.Nexicheckout.AdminConfiguration'));
 
         return $this->redirectToRoute('nexi_checkout_configuration_form');
     }

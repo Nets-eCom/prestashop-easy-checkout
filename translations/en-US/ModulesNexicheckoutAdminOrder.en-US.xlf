@@ -186,6 +186,34 @@
         <source>nexi-checkout-payment-component.refund.table.refund-qty</source>
         <target>Refund qty</target>
       </trans-unit>
+      <trans-unit id="order-not-found">
+        <source>Order not found.</source>
+        <target>Order not found.</target>
+      </trans-unit>
+      <trans-unit id="payment-cancelled-success">
+        <source>Payment has been cancelled successfully.</source>
+        <target>Payment has been cancelled successfully.</target>
+      </trans-unit>
+      <trans-unit id="payment-cancelled-failure">
+        <source>Payment has not been cancelled.</source>
+        <target>Payment has not been cancelled.</target>
+      </trans-unit>
+      <trans-unit id="payment-charged-success">
+        <source>Payment has been charged successfully.</source>
+        <target>Payment has been charged successfully.</target>
+      </trans-unit>
+      <trans-unit id="payment-charged-failure">
+        <source>Payment has not been charged.</source>
+        <target>Payment has not been charged.</target>
+      </trans-unit>
+      <trans-unit id="payment-refunded-success">
+        <source>Payment has been refunded successfully.</source>
+        <target>Payment has been refunded successfully.</target>
+      </trans-unit>
+      <trans-unit id="payment-refunded-failure">
+        <source>Payment has not been refunded.</source>
+        <target>Payment has not been refunded.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
