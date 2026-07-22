@@ -1,6 +1,6 @@
 {
     "name": "nexi-checkout/prestashop-checkout",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Nexi Checkout Secure Payment Module for Prestashop",
     "type": "prestashop-module",
     "license": "MIT",

@@ -4,11 +4,18 @@
 |------|----------
 |Author | `Nets eCom`
 |Shop Version | `8.2+ 9+`
-|Version | `2.0.1`
+|Version | `2.0.2`
 |Guide | https://developer.nexigroup.com/nexi-checkout/en-EU/docs/checkout-for-prestashop-prestashop/
 |Github | https://github.com/Nets-eCom/prestashop-easy-checkout
 
 ## CHANGELOG
+
+### Version 2.0.2 - Released 2026-07-22 
+
+- fix: admin order view translations
+- fix: enter config with no credentials
+- fix: payment method configuration
+- fix: prevent showing JSON in error messages
 
 ### Version 2.0.1 - Released 2026-07-08
 
