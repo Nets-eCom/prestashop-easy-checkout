@@ -1,6 +1,6 @@
 nexi_checkout_configuration_form:
   path: /nexicheckout/configuration
-  methods: [GET, POST]
+  methods: [GET, POST, PATCH]
   defaults:
     _controller: 'Nexi\Checkout\Controller\Admin\NexiConfigurationController::configurationForm'
     # Needed to work with tab system

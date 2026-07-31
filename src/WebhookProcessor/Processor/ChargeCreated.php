@@ -30,7 +30,6 @@ use Nexi\Checkout\Repository\PaymentDetailsRepository;
 use Nexi\Checkout\WebhookProcessor\Normalizer\ChargeDataNormalizer;
 use Nexi\Checkout\WebhookProcessor\WebhookProcessorException;
 use Nexi\Checkout\WebhookProcessor\WebhookProcessorInterface;
-use NexiCheckout\Model\Result\RetrievePayment\Charge;
 use NexiCheckout\Model\Result\RetrievePayment\Payment;
 use NexiCheckout\Model\Result\RetrievePayment\PaymentStatusEnum;
 use NexiCheckout\Model\Webhook\Data\ChargeCreatedData;

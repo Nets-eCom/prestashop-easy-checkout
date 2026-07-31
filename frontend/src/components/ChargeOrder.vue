@@ -58,10 +58,10 @@
             </label>
           </div>
 
-          <small class="text-muted">
+          <small>
             {{ $t('nexi-checkout-payment-component.charge.max-info') }}
             <span
-                class="text-decoration-underline cursor-pointer"
+                class="text-primary nexi-amount-link"
                 @click="onClickMaxCharge"
             >
               {{ maxAmount }} {{ currency }}
@@ -230,3 +230,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.nexi-amount-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+</style>
