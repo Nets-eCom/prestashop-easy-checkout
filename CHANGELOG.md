@@ -3,14 +3,19 @@
 |Module | Nets Easy Payment Module for Prestashop
 |------|----------
 |Author | `Nets eCom`
-|Shop Version | `8.2+ 9+`
-|Version | `2.0.2`
+|Shop Version | `9+`
+|Version | `2.0.3`
 |Guide | https://developer.nexigroup.com/nexi-checkout/en-EU/docs/checkout-for-prestashop-prestashop/
 |Github | https://github.com/Nets-eCom/prestashop-easy-checkout
 
 ## CHANGELOG
 
-### Version 2.0.2 - Released 2026-07-22 
+### Version 2.0.3 - Released 2026-07-31
+
+- fix: configuration page submit when multistore enabled
+- fix: change text on charge modal to black
+
+### Version 2.0.2 - Released 2026-07-22
 
 - fix: admin order view translations
 - fix: enter config with no credentials
