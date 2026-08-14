@@ -2,7 +2,9 @@ trigger: none
 
 pr:
   - main
+  - main-8.2
   - develop
+  - develop-8.2
 
 variables:
   moduleName: nexi_checkout
