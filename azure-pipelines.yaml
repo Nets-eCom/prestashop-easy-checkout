@@ -58,8 +58,8 @@ stages:
             displayName: 'Composer Install (Dev)'
           - task: NodeTool@0
             inputs:
-              versionSpec: '24.x'
-            displayName: Use Node.js 24
+              versionSpec: '16.x'
+            displayName: Use Node.js 16
           - script: |
               echo "Installing frontend dependencies..."
               npm ci

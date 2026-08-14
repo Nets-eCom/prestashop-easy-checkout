@@ -6,9 +6,9 @@ Enhance your Prestashop store with the Nexi Checkout, a comprehensive solution f
 
 ## Requirements
 
-- **Prestashop Version**: Compatible with Prestashop **9.0 and above**.
+- **Prestashop Version**: Compatible with Prestashop **8.2**.
 
-> **Note:** For Prestashop versions **8.2.x**  (e.g., 8.2.7), please use the [Nexi Checkout Payment Module version 8.2.x](https://github.com/Nets-eCom/prestashop-easy-checkout/tree/8.2.x).
+> **Note:** For Prestashop versions **9.x**  (e.g., 9.0.3, 9.1.4), please use the [Nexi Checkout Payment Module](https://github.com/Nets-eCom/prestashop-easy-checkout/).
 
 > **Note:** For Prestashop versions **1.7.x** and **8.0.x**  (e.g., 1.7.8.11, 8.1.7), please use the [Nets Easy Payment Module for Prestashop 1.7](https://github.com/Nets-eCom/Prestashop1.7_NetsEasy).
 
