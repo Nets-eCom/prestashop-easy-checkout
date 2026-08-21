@@ -4,11 +4,15 @@
 |------|----------
 |Author | `Nets eCom`
 |Shop Version | `9+`
-|Version | `2.0.3`
+|Version | `2.1.0`
 |Guide | https://developer.nexigroup.com/nexi-checkout/en-EU/docs/checkout-for-prestashop-prestashop/
 |Github | https://github.com/Nets-eCom/prestashop-easy-checkout
 
 ## CHANGELOG
+
+### Version 2.1.0 - Released 2026-08-21
+
+- update: change Attributes back to Annotation to make plugin compatible with 8.2
 
 ### Version 2.0.3 - Released 2026-07-31
 

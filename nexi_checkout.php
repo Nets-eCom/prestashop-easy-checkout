@@ -53,14 +53,14 @@ class Nexi_Checkout extends PaymentModule
 
     public function __construct()
     {
-        $this->version = '2.0.3';
+        $this->version = '2.1.0';
         $this->name = 'nexi_checkout';
         $this->module_key = '9df9540a2ed3dca1ac462cb88bc38ada';
         $this->displayName = $this->trans('Nexi Checkout', [], 'Modules.Nexicheckout.Install');
         $this->description = $this->trans('Allow you to accept different payment methods in Europe with a checkout built for conversion', [], 'Modules.Nexicheckout.Install');
         $this->tab = 'payments_gateways';
         $this->author = 'Nexi Checkout';
-        $this->ps_versions_compliancy = ['min' => '8.2', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '8.2', 'max' => '8.2.999'];
         $this->confirmUninstall = $this->trans('This will permanently delete all Nexi data. Continue?', [], 'Modules.Nexicheckout.Install');
 
         parent::__construct();
