@@ -73,7 +73,6 @@ services:
   Nexi\Checkout\Security\WebhookVoter:
     arguments:
       - '@Nexi\Checkout\Configuration\ConfigurationProvider'
-      - '@request_stack'
       - '@nexi_checkout.logger'
 
   Nexi\Checkout\WebhookProcessor\Processor\CancelCreated:

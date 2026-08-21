@@ -27,20 +27,23 @@ use Nexi\Checkout\Service\Exception\PaymentMethodsNotAvailableException;
 use Nexi\Checkout\Service\Exception\PaymentMethodsProviderException;
 use Nexi\Checkout\Service\PaymentMethodsProvider;
 use PrestaShop\PrestaShop\Core\Form\FormHandlerInterface;
-use PrestaShopBundle\Controller\Admin\PrestaShopAdminController;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class NexiConfigurationController extends PrestaShopAdminController
+class NexiConfigurationController extends ModuleAdminController
 {
     public function __construct(
+        private readonly FormHandlerInterface $nexiConfigurationFormHandler,
+        private readonly PaymentMethodsProvider $paymentMethodsProvider,
+        private readonly CachedPaymentMethodsFetcher $cachedPaymentMethodsFetcher,
+        private readonly TranslatorInterface $translator,
         private readonly LoggerInterface $logger,
     ) {
     }
@@ -48,35 +51,30 @@ class NexiConfigurationController extends PrestaShopAdminController
     // @TODO: Add security check
     public function configurationForm(
         Request $request,
-        #[Autowire(service: 'prestashop.module.nexi_checkout.form.configuration_form_data_handler')]
-        FormHandlerInterface $nexiConfigurationFormHandler,
-        PaymentMethodsProvider $paymentMethodsProvider,
-        CachedPaymentMethodsFetcher $cachedPaymentMethodsFetcher,
     ): Response {
-        $configurationForm = $nexiConfigurationFormHandler->getForm();
+        $configurationForm = $this->nexiConfigurationFormHandler->getForm();
         $configurationForm->handleRequest($request);
 
         if (!$configurationForm->isSubmitted() || !$configurationForm->isValid()) {
-            return $this->renderConfigurationForm($configurationForm, $paymentMethodsProvider);
+            return $this->renderConfigurationForm($configurationForm);
         }
 
-        $cachedPaymentMethodsFetcher->clearCache();
-        $errors = $nexiConfigurationFormHandler->save($configurationForm->getData());
+        $this->cachedPaymentMethodsFetcher->clearCache();
+        $errors = $this->nexiConfigurationFormHandler->save($configurationForm->getData());
 
         if (!empty($errors)) {
             $this->addFlashErrors($errors);
 
-            return $this->renderConfigurationForm($configurationForm, $paymentMethodsProvider);
+            return $this->renderConfigurationForm($configurationForm);
         }
 
-        $this->addFlash('success', $this->trans('Successful update.', [], 'Modules.Nexicheckout.AdminConfiguration'));
+        $this->addFlash('success', $this->translator->trans('Successful update.', [], 'Modules.Nexicheckout.AdminConfiguration'));
 
         return $this->redirectToRoute('nexi_checkout_configuration_form');
     }
 
     private function renderConfigurationForm(
         FormInterface $configurationForm,
-        PaymentMethodsProvider $paymentMethodsProvider,
     ): Response {
         $formData = $configurationForm->getData();
         $isPaymentMethodSplittingEnabled = $formData['paymentMethodSplitting'] ?? false;
@@ -87,13 +85,13 @@ class NexiConfigurationController extends PrestaShopAdminController
             $currency = \Currency::getDefaultCurrency()->iso_code ??= null;
 
             try {
-                $paymentMethods = $paymentMethodsProvider->provide($currency);
+                $paymentMethods = $this->paymentMethodsProvider->provide($currency);
             } catch (PaymentMethodsNotAvailableException $exception) {
                 $this->logger->error('Error fetching payment methods, no payment methods available.', ['exception' => $exception]);
 
                 $this->addFlash(
                     'error',
-                    $this->trans(
+                    $this->translator->trans(
                         'No payment methods available. Please check your API credentials and reload the page.',
                         [],
                         'Modules.Nexicheckout.AdminConfiguration'
@@ -104,7 +102,7 @@ class NexiConfigurationController extends PrestaShopAdminController
 
                 $this->addFlash(
                     'error',
-                    $this->trans(
+                    $this->translator->trans(
                         'Failed to fetch payment methods.',
                         [],
                         'Modules.Nexicheckout.AdminConfiguration'

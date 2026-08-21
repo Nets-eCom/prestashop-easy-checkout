@@ -24,9 +24,16 @@ services:
     arguments:
       $logger: '@nexi_checkout.logger'
 
+  Nexi\Checkout\Controller\Admin\NexiConfigurationController:
+    arguments:
+      $nexiConfigurationFormHandler: '@prestashop.module.nexi_checkout.form.configuration_form_data_handler'
+
   # Configuration form
   Nexi\Checkout\Form\NexiConfigurationFormType:
     parent: 'form.type.translatable.aware'
+    public: true
+    autowire: false
+    autoconfigure: false
     tags:
       - { name: form.type }
 

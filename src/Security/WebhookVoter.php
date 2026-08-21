@@ -26,7 +26,6 @@ use Nexi\Checkout\Configuration\ConfigurationProvider;
 use PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -38,7 +37,6 @@ class WebhookVoter extends NexiVoter
 
     public function __construct(
         private readonly ConfigurationProvider $configurationProvider,
-        private readonly RequestStack $requestStack,
         private readonly LoggerInterface $logger,
     ) {
     }
@@ -54,7 +52,7 @@ class WebhookVoter extends NexiVoter
     protected function voteOnAttribute(string $attribute, mixed $subject): bool
     {
         $context = $subject;
-        $request = $this->requestStack->getMainRequest();
+        $request = Request::createFromGlobals();
 
         if (!$this->isValidAuthHeader($request, $context)) {
             $this->logger->error(

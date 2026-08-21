@@ -31,11 +31,17 @@ if (!defined('_PS_VERSION_')) {
 class Item
 {
     public function __construct(
-        #[Assert\NotBlank]
+        /**
+         * @Assert\NotBlank
+         */
         private readonly string $reference,
-        #[Assert\Positive]
+        /**
+         * @Assert\Positive
+         */
         private readonly int $quantity,
-        #[Assert\GreaterThanOrEqual(0.01)]
+        /**
+         * @Assert\GreaterThanOrEqual(0.01)
+         */
         private readonly float $amount,
     ) {
     }

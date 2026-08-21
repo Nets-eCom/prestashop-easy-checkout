@@ -8,10 +8,10 @@
         "dev": "vue-cli-service build --no-clean --mode development --watch"
     },
     "dependencies": {
-        "@intlify/core-base": "^12.0.0-alpha.3",
+        "@intlify/core-base": "9.2.2",
         "core-js": "^3.8.3",
-        "petite-vue-i18n": "^12.0.0-alpha.3",
-        "vue": "^3.2.13"
+        "petite-vue-i18n": "9.2.2",
+        "vue": "3.2.13"
     },
     "devDependencies": {
         "@babel/core": "^7.12.16",

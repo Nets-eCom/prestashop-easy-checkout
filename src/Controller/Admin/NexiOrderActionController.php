@@ -36,18 +36,20 @@ use NexiCheckout\Model\Result\RetrievePayment\PaymentStatusEnum;
 use PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository;
 use PrestaShop\PrestaShop\Core\Domain\Order\Exception\OrderNotFoundException;
 use PrestaShop\PrestaShop\Core\Domain\Order\ValueObject\OrderId;
-use PrestaShopBundle\Controller\Admin\PrestaShopAdminController;
-use PrestaShopBundle\Security\Attribute\AdminSecurity;
+use PrestaShopBundle\Security\Annotation\AdminSecurity as AdminSecurityAnnotation;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class NexiOrderActionController extends PrestaShopAdminController
+class NexiOrderActionController extends ModuleAdminController
 {
     public function __construct(
         private readonly OrderCancel $orderCancel,
@@ -56,15 +58,17 @@ class NexiOrderActionController extends PrestaShopAdminController
         private readonly OrderRepository $orderRepository,
         private readonly OrderCharge $orderCharge,
         private readonly PaymentDetailsRepository $paymentDetailsRepository,
+        private readonly TranslatorInterface $translator,
+        private readonly SerializerInterface $serializer,
+        private readonly ValidatorInterface $validator,
         private readonly \Context $context,
         private readonly LoggerInterface $logger,
     ) {
     }
 
-    #[AdminSecurity(
-        "is_granted('update', 'AdminOrders')",
-        message: 'You do not have permission to perform action',
-    )]
+    /**
+     * @AdminSecurityAnnotation("is_granted('update', 'AdminOrders')")
+     */
     public function cancel(int $orderId): JsonResponse
     {
         try {
@@ -73,7 +77,7 @@ class NexiOrderActionController extends PrestaShopAdminController
             if (!\Validate::isLoadedObject($order)) {
                 $this->addFlash(
                     'error',
-                    $this->trans('Order not found.', [], 'Modules.Nexicheckout.AdminOrder')
+                    $this->translator->trans('Order not found.', [], 'Modules.Nexicheckout.AdminOrder')
                 );
 
                 return $this->json([
@@ -85,14 +89,14 @@ class NexiOrderActionController extends PrestaShopAdminController
 
             $this->addFlash(
                 'success',
-                $this->trans('Payment has been cancelled successfully.', [], 'Modules.Nexicheckout.AdminOrder')
+                $this->translator->trans('Payment has been cancelled successfully.', [], 'Modules.Nexicheckout.AdminOrder')
             );
 
             return $this->json([]);
         } catch (\Exception $exception) {
             return $this->handleErrorResponse(
                 $exception,
-                $this->trans('Payment has not been cancelled.', [], 'Modules.Nexicheckout.AdminOrder'),
+                $this->translator->trans('Payment has not been cancelled.', [], 'Modules.Nexicheckout.AdminOrder'),
                 sprintf('Error cancelling payment for order %s.', $orderId),
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 ['orderId' => $orderId]
@@ -100,14 +104,27 @@ class NexiOrderActionController extends PrestaShopAdminController
         }
     }
 
-    #[AdminSecurity(
-        "is_granted('update', 'AdminOrders')",
-        message: 'You do not have permission to perform action',
-    )]
+    /**
+     * @AdminSecurityAnnotation("is_granted('update', 'AdminOrders')")
+     */
     public function charge(
+        Request $request,
         int $orderId,
-        #[MapRequestPayload(acceptFormat: 'json', validationFailedStatusCode: Response::HTTP_BAD_REQUEST)] ChargeData $chargeData,
     ): JsonResponse {
+        /** @var ChargeData $chargeData */
+        $chargeData = $this->serializer->deserialize(
+            $request->getContent(),
+            ChargeData::class,
+            'json'
+        );
+
+        $errors = $this->validator->validate($chargeData);
+        if (count($errors) > 0) {
+            return $this->json([
+                'message' => (string) $errors,
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         try {
             $order = new \Order($orderId);
 
@@ -121,14 +138,14 @@ class NexiOrderActionController extends PrestaShopAdminController
 
             $this->addFlash(
                 'success',
-                $this->trans('Payment has been charged successfully.', [], 'Modules.Nexicheckout.AdminOrder')
+                $this->translator->trans('Payment has been charged successfully.', [], 'Modules.Nexicheckout.AdminOrder')
             );
 
             return $this->json([]);
         } catch (\LogicException|OrderChargeException|\Exception $exception) {
             return $this->handleErrorResponse(
                 $exception,
-                $this->trans('Payment has not been charged.', [], 'Modules.Nexicheckout.AdminOrder'),
+                $this->translator->trans('Payment has not been charged.', [], 'Modules.Nexicheckout.AdminOrder'),
                 sprintf('Error charging payment for order %s.', $orderId),
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 ['orderId' => $orderId]
@@ -136,17 +153,27 @@ class NexiOrderActionController extends PrestaShopAdminController
         }
     }
 
-    #[AdminSecurity(
-        "is_granted('update', 'AdminOrders')",
-        message: 'You do not have permission to perform action',
-        redirectQueryParamsToKeep: ['orderId'],
-        redirectRoute: 'admin_orders_view'
-    )]
+    /**
+     * @AdminSecurityAnnotation("is_granted('update', 'AdminOrders')")
+     */
     public function refund(
+        Request $request,
         int $orderId,
-        #[MapRequestPayload(acceptFormat: 'json', validationFailedStatusCode: Response::HTTP_BAD_REQUEST)]
-        RefundData $refundData,
     ): JsonResponse {
+        /** @var RefundData $refundData */
+        $refundData = $this->serializer->deserialize(
+            $request->getContent(),
+            RefundData::class,
+            'json'
+        );
+
+        $errors = $this->validator->validate($refundData);
+        if (count($errors) > 0) {
+            return $this->json([
+                'message' => (string) $errors,
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         $orderId = new OrderId($orderId);
         try {
             $order = $this->orderRepository->get($orderId);
@@ -161,12 +188,12 @@ class NexiOrderActionController extends PrestaShopAdminController
 
             $this->addFlash(
                 'success',
-                $this->trans('Payment has been refunded successfully.', [], 'Modules.Nexicheckout.AdminOrder')
+                $this->translator->trans('Payment has been refunded successfully.', [], 'Modules.Nexicheckout.AdminOrder')
             );
         } catch (OrderRefundException $orderRefundException) {
             return $this->handleErrorResponse(
                 $orderRefundException,
-                $this->trans('Payment has not been refunded.', [], 'Modules.Nexicheckout.AdminOrder'),
+                $this->translator->trans('Payment has not been refunded.', [], 'Modules.Nexicheckout.AdminOrder'),
                 sprintf('Error refunding payment for order %s.', $orderId->getValue()),
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 ['orderId' => $orderId]
@@ -176,10 +203,9 @@ class NexiOrderActionController extends PrestaShopAdminController
         return $this->json([]);
     }
 
-    #[AdminSecurity(
-        "is_granted('read', 'AdminOrders')",
-        message: 'You do not have permission to view payment details',
-    )]
+    /**
+     * @AdminSecurityAnnotation("is_granted('update', 'AdminOrders')")
+     */
     public function paymentDetails(int $orderId): Response
     {
         $order = new \Order($orderId);
@@ -219,7 +245,7 @@ class NexiOrderActionController extends PrestaShopAdminController
             'paymentStatus' => $status->value,
             // 'orderItems' => $this->buildItems($payment, $transaction),
             'charges' => $this->buildChargedItems($payment),
-            'currency' => \Currency::getIsoCodeById($order->id_currency),
+            'currency' => \Currency::getIsoCodeById((int) $order->id_currency),
             'items' => $this->buildItems($orderData, $payment),
         ]);
     }

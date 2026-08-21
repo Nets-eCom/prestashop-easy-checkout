@@ -28,20 +28,22 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-#[Assert\Cascade]
 class ChargeData
 {
     /**
      * @var Item[]
+     *
+     * @Assert\Valid
      */
-    #[Assert\All([new Assert\Type(Item::class)])]
     private readonly array $items;
 
     /**
      * @param array{'reference': string, 'quantity': int|string, 'amount': float|string}[] $items
      */
     public function __construct(
-        #[Assert\GreaterThanOrEqual(0.01)]
+        /**
+         * @Assert\GreaterThanOrEqual(0.01)
+         */
         private readonly float $amount,
         array $items = [],
     ) {

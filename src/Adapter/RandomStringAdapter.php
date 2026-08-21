@@ -28,10 +28,14 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class RandomStringAdapter extends RandomString
+class RandomStringAdapter
 {
     public static function generate(int $length = 32): string
     {
-        return parent::generate($length);
+        if (class_exists('PrestaShop\PrestaShop\Core\Util\String\RandomString')) {
+            return RandomString::generate($length);
+        }
+
+        return substr(bin2hex(random_bytes($length)), 0, $length);
     }
 }

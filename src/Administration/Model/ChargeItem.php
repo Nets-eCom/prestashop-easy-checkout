@@ -31,21 +31,37 @@ if (!defined('_PS_VERSION_')) {
 readonly class ChargeItem
 {
     public function __construct(
-        #[Assert\NotBlank]
+        /**
+         * @Assert\NotBlank
+         */
         private string $chargeId,
-        #[Assert\NotBlank]
+        /**
+         * @Assert\NotBlank
+         */
         private string $name,
-        #[Assert\NotBlank]
+        /**
+         * @Assert\NotBlank
+         */
         private float|int $quantity,
-        #[Assert\NotBlank]
+        /**
+         * @Assert\NotBlank
+         */
         private string $unit,
-        #[Assert\NotBlank]
+        /**
+         * @Assert\NotBlank
+         */
         private float $unitPrice,
-        #[Assert\GreaterThanOrEqual(0.01)]
+        /**
+         * @Assert\GreaterThanOrEqual(0.01)
+         */
         private float $grossTotalAmount,
-        #[Assert\GreaterThanOrEqual(0.01)]
+        /**
+         * @Assert\GreaterThanOrEqual(0.01)
+         */
         private float $netTotalAmount,
-        #[Assert\NotBlank]
+        /**
+         * @Assert\GreaterThanOrEqual(0.01)
+         */
         private string $reference,
         private ?int $taxRate = null,
     ) {

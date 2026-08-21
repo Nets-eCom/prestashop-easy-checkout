@@ -244,16 +244,25 @@ export default {
             charges[i.chargeId].amount += gross
           })
 
-      await fetch(this.endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: Number(this.refundAmount),
-          charges,
-        }),
-      })
+      try {
+        const res = await fetch(this.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: Number(this.refundAmount),
+            charges,
+          }),
+        })
 
-      window.location.reload()
+        if (!res.ok) {
+          const body = await res.json()
+          console.error('Refund failed:', body.message)
+        }
+
+        window.location.reload()
+      } finally {
+        this.loading = false
+      }
     },
   },
 }

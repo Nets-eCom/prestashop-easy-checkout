@@ -32,16 +32,9 @@ if (!defined('_PS_VERSION_')) {
 
 class RefundDataDenormalizer implements DenormalizerInterface
 {
-    /**
-     * TODO_1: Resolve $format nullability conflict.
-     * Symfony/PHP require explicit nullable (?string $format = null),
-     * but PrestaShop Validator currently rejects it (false positive).
-     * Implicit nullability ($format = null) passes PS validation,
-     * but is deprecated as of PHP 8.4.
-     */
     public function supportsDenormalization(
-        mixed $data,
-        string $type,
+        $data,
+        $type,
         $format = null,
         array $context = [],
     ): bool {
@@ -53,10 +46,14 @@ class RefundDataDenormalizer implements DenormalizerInterface
 
     /**
      * TODO_1: Resolve $format nullability conflict.
+     * Symfony/PHP require explicit nullable (?string $format = null),
+     * but PrestaShop Validator currently rejects it (false positive).
+     * Implicit nullability ($format = null) passes PS validation,
+     * but is deprecated as of PHP 8.4.
      */
     public function denormalize(
         mixed $data,
-        string $type,
+        $type,
         $format = null,
         array $context = [],
     ): RefundData {

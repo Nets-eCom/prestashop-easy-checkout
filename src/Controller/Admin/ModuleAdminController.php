@@ -20,34 +20,25 @@
 
 declare(strict_types=1);
 
-namespace Nexi\Checkout\Http;
+namespace Nexi\Checkout\Controller\Admin;
 
-use NexiCheckout\Factory\Provider\HttpClientConfigurationProvider;
+use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use PrestaShopBundle\Controller\Admin\PrestaShopAdminController;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class HttpClientProviderConfigurator
-{
-    public function __construct(
-        private readonly HttpClientConfigurationProvider $provider,
-    ) {
-    }
-
-    public function configure(): void
+if (class_exists('\PrestaShopBundle\Controller\Admin\PrestaShopAdminController')) {
+    abstract class ModuleAdminController extends PrestaShopAdminController
     {
-        $this->provider->setCommercePlatformTag($this->buildCommerceTag());
     }
-
-    private function buildCommerceTag(): string
+} else {
+    abstract class ModuleAdminController extends FrameworkBundleAdminController
     {
-        return \sprintf(
-            '%s %s, %s, php%s',
-            \Nexi_Checkout::COMMERCE_PLATFORM_TAG,
-            _PS_VERSION_,
-            \Nexi_Checkout::MODULE_NAME,
-            \PHP_VERSION
-        );
+        protected function addFlashErrors(array $errorMessages)
+        {
+            return parent::flashErrors($errorMessages);
+        }
     }
 }
