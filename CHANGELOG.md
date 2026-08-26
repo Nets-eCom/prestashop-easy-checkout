@@ -4,11 +4,15 @@
 |------|----------
 |Author | `Nets eCom`
 |Shop Version | `9+`
-|Version | `2.1.0`
+|Version | `2.1.1`
 |Guide | https://developer.nexigroup.com/nexi-checkout/en-EU/docs/checkout-for-prestashop-prestashop/
 |Github | https://github.com/Nets-eCom/prestashop-easy-checkout
 
 ## CHANGELOG
+
+### Version 2.1.1 - Released 2026-08-27
+
+- fix: downgrade module to work with php 8.1
 
 ### Version 2.1.0 - Released 2026-08-21
 
