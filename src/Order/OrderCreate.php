@@ -35,13 +35,13 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class OrderCreate
+final class OrderCreate
 {
     public function __construct(
-        private \PaymentModule $module,
-        private PaymentDetailsRepository $paymentDetailsRepository,
-        private EntityManagerInterface $entityManager,
-        private EventDispatcherInterface $eventDispatcher,
+        private readonly \PaymentModule $module,
+        private readonly PaymentDetailsRepository $paymentDetailsRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 

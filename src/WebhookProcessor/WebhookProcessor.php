@@ -28,13 +28,13 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class WebhookProcessor
+final class WebhookProcessor
 {
     /**
      * @param WebhookProcessorInterface[] $webhookProcessors
      */
     public function __construct(
-        private iterable $webhookProcessors,
+        private readonly iterable $webhookProcessors,
     ) {
     }
 

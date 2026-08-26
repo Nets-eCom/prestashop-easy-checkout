@@ -37,13 +37,13 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class UpdateOrderReferenceOnOrderCreatedSubscriber implements EventSubscriberInterface
+final class UpdateOrderReferenceOnOrderCreatedSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private PaymentApiFactory $apiFactory,
-        private ConfigurationProvider $configurationProvider,
-        private \Context $context,
-        private LoggerInterface $logger,
+        private readonly PaymentApiFactory $apiFactory,
+        private readonly ConfigurationProvider $configurationProvider,
+        private readonly \Context $context,
+        private readonly LoggerInterface $logger,
     ) {
     }
 

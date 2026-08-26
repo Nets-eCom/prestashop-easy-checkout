@@ -43,24 +43,24 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class EmbeddedPaymentOptionBuilder
+final class EmbeddedPaymentOptionBuilder
 {
-    private TranslatorComponent $translator;
+    private readonly TranslatorComponent $translator;
 
-    private \Link $link;
+    private readonly \Link $link;
 
-    private \Smarty $smarty;
+    private readonly \Smarty $smarty;
 
     public function __construct(
-        private \Context $context,
-        private ConfigurationProvider $configurationProvider,
-        private PaymentApiFactory $paymentApiFactory,
-        private PaymentRequest $paymentRequest,
-        private LanguageProvider $languageProvider,
-        private EntityManagerInterface $entityManager,
-        private CartSignature $cartSignature,
-        private PaymentDetailsRepository $paymentDetailsRepository,
-        private LoggerInterface $logger,
+        private readonly \Context $context,
+        private readonly ConfigurationProvider $configurationProvider,
+        private readonly PaymentApiFactory $paymentApiFactory,
+        private readonly PaymentRequest $paymentRequest,
+        private readonly LanguageProvider $languageProvider,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly CartSignature $cartSignature,
+        private readonly PaymentDetailsRepository $paymentDetailsRepository,
+        private readonly LoggerInterface $logger,
     ) {
         $this->translator = $this->context->getTranslator();
         $this->link = $this->context->link;

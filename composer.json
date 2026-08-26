@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.1",
         "nexi-checkout/php-payment-sdk": "^0.10",
         "giggsey/libphonenumber-for-php-lite": "^8.13"
     },

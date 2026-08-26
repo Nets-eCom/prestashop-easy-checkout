@@ -31,14 +31,14 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class CheckoutBuilder
+final class CheckoutBuilder
 {
-    private \Link $link;
+    private readonly \Link $link;
 
     public function __construct(
-        private ConfigurationProvider $configurationProvider,
-        private CustomerBuilder $customerBuilder,
-        private \Context $context,
+        private readonly ConfigurationProvider $configurationProvider,
+        private readonly CustomerBuilder $customerBuilder,
+        private readonly \Context $context,
     ) {
         $this->link = $this->context->link;
     }

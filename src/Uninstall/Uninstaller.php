@@ -26,10 +26,10 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class Uninstaller
+final class Uninstaller
 {
     /** @var UninstallStepInterface[] */
-    private array $uninstallSteps;
+    private readonly array $uninstallSteps;
 
     public function __construct(UninstallStepInterface ...$uninstallSteps)
     {

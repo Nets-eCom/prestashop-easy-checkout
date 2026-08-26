@@ -43,17 +43,17 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class ChargeCreated implements WebhookProcessorInterface
+final class ChargeCreated implements WebhookProcessorInterface
 {
     use ProcessorLogTrait;
 
     public function __construct(
-        private PaymentDetailsRepository $paymentDetailsRepository,
-        private OrderRepository $orderRepository,
-        private PaymentFetcherInterface $paymentFetcher,
-        private ChargeDataNormalizer $chargeDataNormalizer,
-        private EntityManagerInterface $entityManager,
-        private LoggerInterface $logger,
+        private readonly PaymentDetailsRepository $paymentDetailsRepository,
+        private readonly OrderRepository $orderRepository,
+        private readonly PaymentFetcherInterface $paymentFetcher,
+        private readonly ChargeDataNormalizer $chargeDataNormalizer,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger,
     ) {
     }
 

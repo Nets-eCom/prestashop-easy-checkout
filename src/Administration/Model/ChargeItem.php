@@ -28,42 +28,42 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-readonly class ChargeItem
+class ChargeItem
 {
     public function __construct(
         /**
          * @Assert\NotBlank
          */
-        private string $chargeId,
+        private readonly string $chargeId,
         /**
          * @Assert\NotBlank
          */
-        private string $name,
+        private readonly string $name,
         /**
          * @Assert\NotBlank
          */
-        private float|int $quantity,
+        private readonly float|int $quantity,
         /**
          * @Assert\NotBlank
          */
-        private string $unit,
+        private readonly string $unit,
         /**
          * @Assert\NotBlank
          */
-        private float $unitPrice,
+        private readonly float $unitPrice,
         /**
          * @Assert\GreaterThanOrEqual(0.01)
          */
-        private float $grossTotalAmount,
+        private readonly float $grossTotalAmount,
         /**
          * @Assert\GreaterThanOrEqual(0.01)
          */
-        private float $netTotalAmount,
+        private readonly float $netTotalAmount,
         /**
          * @Assert\GreaterThanOrEqual(0.01)
          */
-        private string $reference,
-        private ?int $taxRate = null,
+        private readonly string $reference,
+        private readonly ?int $taxRate = null,
     ) {
     }
 

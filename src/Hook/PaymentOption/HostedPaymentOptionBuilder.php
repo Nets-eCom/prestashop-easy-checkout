@@ -29,14 +29,14 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class HostedPaymentOptionBuilder
+final class HostedPaymentOptionBuilder
 {
-    private TranslatorComponent $translator;
+    private readonly TranslatorComponent $translator;
 
-    private \Link $link;
+    private readonly \Link $link;
 
     public function __construct(
-        private \Context $context,
+        private readonly \Context $context,
     ) {
         $this->translator = $this->context->getTranslator();
         $this->link = $this->context->link;

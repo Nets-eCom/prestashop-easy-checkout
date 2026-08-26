@@ -37,14 +37,14 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-final readonly class CancelCreated implements WebhookProcessorInterface
+final class CancelCreated implements WebhookProcessorInterface
 {
     use ProcessorLogTrait;
 
     public function __construct(
-        private PaymentDetailsRepository $paymentDetailsRepository,
-        private OrderRepository $orderRepository,
-        private LoggerInterface $logger,
+        private readonly PaymentDetailsRepository $paymentDetailsRepository,
+        private readonly OrderRepository $orderRepository,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
