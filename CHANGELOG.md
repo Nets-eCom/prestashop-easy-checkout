@@ -9,6 +9,9 @@
 |Github | https://github.com/Nets-eCom/prestashop-easy-checkout
 
 ## CHANGELOG
+### Version 2.1.2 - Released 2026-09-15
+
+- fix: bump nexi-checkout/php-payment-sdk to 0.16
 
 ### Version 2.1.1 - Released 2026-08-27
 
