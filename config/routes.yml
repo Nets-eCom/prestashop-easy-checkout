@@ -19,6 +19,13 @@ nexi_checkout_order_charge:
   defaults:
     _controller: 'Nexi\Checkout\Controller\Admin\NexiOrderActionController::charge'
 
+nexi_checkout_orders_bulk_charge:
+  path: /nexicheckout/orders/bulk-charge
+  methods: [POST]
+  defaults:
+    _controller: 'Nexi\Checkout\Controller\Admin\NexiOrderActionController::bulkCharge'
+    _legacy_controller: AdminOrders
+
 nexi_checkout_payment_details:
   path: /nexicheckout/order/{orderId}/details
   methods: [GET]

@@ -29,6 +29,7 @@ Enhance your Prestashop store with the Nexi Checkout, a comprehensive solution f
 - Refund and capture capabilities with item-level control
 - Multi-store support
 - Automatic webhook synchronisation of payment events
+- Full capture of up to 20 reserved Nexi payments in one bulk action
 
 ## Customer Service
 

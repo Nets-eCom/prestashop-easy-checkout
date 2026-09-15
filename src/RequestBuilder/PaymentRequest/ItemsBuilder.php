@@ -68,7 +68,7 @@ class ItemsBuilder
         }
 
         $discountValue = $cart->getDiscountSubtotalWithoutGifts();
-        if ($discountValue < 0) {
+        if ($discountValue > 0) {
             $items[] = $this->createDiscountItem($discountValue);
         }
 

@@ -27,6 +27,7 @@ use Nexi\Checkout\Hook\ActionListMailThemesHandler;
 use Nexi\Checkout\Hook\AppScriptTagsRenderer;
 use Nexi\Checkout\Hook\DisplayAdminOrderMainRenderer;
 use Nexi\Checkout\Hook\NexiCheckoutScriptTagsRenderer;
+use Nexi\Checkout\Hook\OrderGridDefinitionModifier;
 use Nexi\Checkout\Hook\PaymentOptions;
 
 if (!defined('_PS_VERSION_')) {
@@ -47,6 +48,7 @@ class HookInstaller implements InstallStepInterface
             NexiCheckoutScriptTagsRenderer::HOOK,
             ActionListMailThemesHandler::HOOK,
             ActionEmailSendBeforeHandler::HOOK,
+            OrderGridDefinitionModifier::HOOK,
         ];
 
         return $this->module->registerHook($hooksToRegister);

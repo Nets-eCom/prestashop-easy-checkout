@@ -38,6 +38,63 @@ namespace PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject {
     }
 }
 
+namespace PrestaShop\PrestaShop\Core\Domain\Order\ValueObject {
+    if (!class_exists('OrderId')) {
+        class OrderId
+        {
+            public function __construct(private readonly int $value)
+            {
+            }
+
+            public function getValue(): int
+            {
+                return $this->value;
+            }
+        }
+    }
+}
+
+namespace Doctrine\ORM {
+    if (!class_exists('EntityRepository')) {
+        class EntityRepository
+        {
+        }
+    }
+}
+
+namespace PrestaShop\PrestaShop\Core\Shop {
+    if (!interface_exists('ShopContextInterface')) {
+        interface ShopContextInterface
+        {
+            public function getShopName();
+
+            public function getContextShopIds(): array;
+        }
+    }
+}
+
+namespace PrestaShop\PrestaShop\Core\Domain\Order\Exception {
+    if (!class_exists('OrderNotFoundException')) {
+        class OrderNotFoundException extends \Exception
+        {
+        }
+    }
+}
+
+namespace PrestaShop\PrestaShop\Adapter\Order\Repository {
+    use PrestaShop\PrestaShop\Core\Domain\Order\ValueObject\OrderId;
+
+    if (!class_exists('OrderRepository')) {
+        class OrderRepository
+        {
+            public function get(OrderId $orderId): \Order
+            {
+                return new \Order($orderId->getValue());
+            }
+        }
+    }
+}
+
 /**
  * Declaration for the Global namespace
  */
@@ -134,6 +191,14 @@ namespace {
                     }
                 ',
             ],
+            'Configuration' => [
+                'methods' => '
+                    public static $values = [];
+                    public static function get($key) { return self::$values[$key] ?? false; }
+                    public static function updateValue($key, $value) { self::$values[$key] = $value; return true; }
+                    public static function deleteByName($key) { unset(self::$values[$key]); return true; }
+                ',
+            ],
             'ObjectModel' => [
                 'is_abstract' => true,
                 'methods' => '
@@ -144,6 +209,24 @@ namespace {
                     public function delete() { return true; }
                 ',
             ],
+            'Order' => [
+                'methods' => '
+                    public $id;
+                    public $id_shop = 1;
+                    public $current_state = 0;
+                    public function __construct($id = null) { $this->id = $id; }
+                    public function getCurrentState() { return $this->current_state; }
+                    public function setCurrentState($stateId) { $this->current_state = $stateId; }
+                ',
+            ],
+            'OrderHistory' => [
+                'methods' => '
+                    public $id_order;
+                    public $id_order_state;
+                    public function changeIdOrderState($stateId, $order) { $this->id_order_state = $stateId; }
+                    public function add() { return true; }
+                ',
+            ],
             'Module' => [
                 'is_abstract' => true,
                 'methods' => 'public $name; public $displayName;',
@@ -151,7 +234,10 @@ namespace {
             'Customer' => [],
             'Cart' => [],
             'Shop' => [
-                'methods' => 'public $id = 1;',
+                'methods' => '
+                    public $id = 1;
+                    public function __construct($id = null) { $this->id = $id ?? 1; }
+                ',
             ],
             'Language' => [],
             'Link' => [],

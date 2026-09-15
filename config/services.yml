@@ -18,10 +18,16 @@ services:
     exclude: 
       - '../src/{Install,Uninstall,Entity,Repository,Event,*/Exception,Administration/Model,WebhookProcessor}/'
       - '../src/Order/OrderCreate.php'
+      - '../src/Order/BulkCaptureResult.php'
       - '../src/**/index.php'
 
   Nexi\Checkout\Controller\Admin\NexiOrderActionController:
     arguments:
+      $logger: '@nexi_checkout.logger'
+
+  Nexi\Checkout\Order\BulkOrderCapture:
+    arguments:
+      $context: '@nexi_checkout.context'
       $logger: '@nexi_checkout.logger'
 
   # Configuration form

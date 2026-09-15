@@ -25,6 +25,7 @@ namespace Nexi\Checkout\Controller\Admin;
 use Nexi\Checkout\Administration\Model\ChargeData;
 use Nexi\Checkout\Administration\Model\RefundData;
 use Nexi\Checkout\Fetcher\PaymentFetcherInterface;
+use Nexi\Checkout\Order\BulkOrderCapture;
 use Nexi\Checkout\Order\Exception\OrderChargeException;
 use Nexi\Checkout\Order\Exception\OrderRefundException;
 use Nexi\Checkout\Order\OrderCancel;
@@ -36,10 +37,13 @@ use NexiCheckout\Model\Result\RetrievePayment\PaymentStatusEnum;
 use PrestaShop\PrestaShop\Adapter\Order\Repository\OrderRepository;
 use PrestaShop\PrestaShop\Core\Domain\Order\Exception\OrderNotFoundException;
 use PrestaShop\PrestaShop\Core\Domain\Order\ValueObject\OrderId;
+use PrestaShop\PrestaShop\Core\Shop\ShopContextInterface;
 use PrestaShopBundle\Controller\Admin\PrestaShopAdminController;
 use PrestaShopBundle\Security\Attribute\AdminSecurity;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 
@@ -55,7 +59,9 @@ class NexiOrderActionController extends PrestaShopAdminController
         private readonly OrderRefund $orderRefund,
         private readonly OrderRepository $orderRepository,
         private readonly OrderCharge $orderCharge,
+        private readonly BulkOrderCapture $bulkOrderCapture,
         private readonly PaymentDetailsRepository $paymentDetailsRepository,
+        private readonly ShopContextInterface $shopContext,
         private readonly \Context $context,
         private readonly LoggerInterface $logger,
     ) {
@@ -134,6 +140,132 @@ class NexiOrderActionController extends PrestaShopAdminController
                 ['orderId' => $orderId]
             );
         }
+    }
+
+    #[AdminSecurity(
+        "is_granted('update', 'AdminOrders')",
+        message: 'You do not have permission to perform action',
+        redirectRoute: 'admin_orders_index',
+    )]
+    public function bulkCharge(Request $request): RedirectResponse
+    {
+        if (!$this->isCsrfTokenValid('nexi_checkout_bulk_charge', (string) $request->query->get('_csrf_token'))) {
+            $this->addFlash(
+                'error',
+                $this->trans('The security token is invalid. Please try again.', [], 'Admin.Notifications.Error')
+            );
+
+            return $this->redirectToRoute('admin_orders_index');
+        }
+
+        $orderIds = array_map(intval(...), $request->request->all('order_orders_bulk'));
+        $orderIds = array_values(array_unique(array_filter(
+            $orderIds,
+            fn (int $orderId): bool => $orderId > 0
+        )));
+
+        if ($orderIds === []) {
+            $this->addFlash(
+                'error',
+                $this->trans('Select at least one order to capture.', [], 'Modules.Nexicheckout.AdminOrder')
+            );
+
+            return $this->redirectToRoute('admin_orders_index');
+        }
+
+        if (count($orderIds) > BulkOrderCapture::MAX_ORDERS) {
+            $this->addFlash(
+                'error',
+                $this->trans(
+                    'You can capture a maximum of %count% orders at once.',
+                    ['%count%' => BulkOrderCapture::MAX_ORDERS],
+                    'Modules.Nexicheckout.AdminOrder'
+                )
+            );
+
+            return $this->redirectToRoute('admin_orders_index');
+        }
+
+        $orders = $this->loadOrdersInShopContext($orderIds);
+        if ($orders === []) {
+            $this->addFlash(
+                'error',
+                $this->trans(
+                    'One or more selected orders could not be found or are outside the current shop context.',
+                    [],
+                    'Modules.Nexicheckout.AdminOrder'
+                )
+            );
+
+            return $this->redirectToRoute('admin_orders_index');
+        }
+
+        $result = $this->bulkOrderCapture->capture($orders);
+        $capturedOrderIds = $result->getCapturedOrderIds();
+        $skippedOrderIds = $result->getSkippedOrderIds();
+        $failedOrderIds = $result->getFailedOrderIds();
+
+        if ($capturedOrderIds !== []) {
+            $this->addFlash(
+                'success',
+                $this->trans(
+                    '%count% order capture(s) submitted successfully.',
+                    ['%count%' => count($capturedOrderIds)],
+                    'Modules.Nexicheckout.AdminOrder'
+                )
+            );
+        }
+
+        if ($skippedOrderIds !== []) {
+            $this->addFlash(
+                'warning',
+                $this->trans(
+                    '%count% order(s) skipped because they are not eligible for Nexi bulk capture.',
+                    ['%count%' => count($skippedOrderIds)],
+                    'Modules.Nexicheckout.AdminOrder'
+                )
+            );
+        }
+
+        if ($failedOrderIds !== []) {
+            $this->addFlash(
+                'error',
+                $this->trans(
+                    'Capture failed for order(s): %order_ids%.',
+                    ['%order_ids%' => implode(', ', $failedOrderIds)],
+                    'Modules.Nexicheckout.AdminOrder'
+                )
+            );
+        }
+
+        return $this->redirectToRoute('admin_orders_index');
+    }
+
+    /**
+     * @param list<int> $orderIds
+     *
+     * @return list<\Order>
+     */
+    private function loadOrdersInShopContext(array $orderIds): array
+    {
+        $allowedShopIds = $this->shopContext->getContextShopIds();
+        $orders = [];
+
+        foreach ($orderIds as $orderId) {
+            try {
+                $order = $this->orderRepository->get(new OrderId($orderId));
+            } catch (OrderNotFoundException) {
+                return [];
+            }
+
+            if (!in_array((int) $order->id_shop, $allowedShopIds, true)) {
+                return [];
+            }
+
+            $orders[] = $order;
+        }
+
+        return $orders;
     }
 
     #[AdminSecurity(

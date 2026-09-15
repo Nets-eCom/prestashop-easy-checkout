@@ -16,14 +16,15 @@ A native payment module for PrestaShop that integrates the Nexi Checkout payment
    - [Option A: Install from a release package](#option-a-install-from-a-release-package)
    - [Option B: Install from source (GitHub)](#option-b-install-from-source-github)
 - [5. Configuration steps](#5-configuration-steps)
-- [6. Payment method splitting](#6-payment-method-splitting)
-- [7. Klarna](#7-klarna)
-- [8. Go live checklist](#8-go-live-checklist)
-- [9. Troubleshooting](#9-troubleshooting)
+- [6. Bulk capture](#6-bulk-capture)
+- [7. Payment method splitting](#7-payment-method-splitting)
+- [8. Klarna](#8-klarna)
+- [9. Go live checklist](#9-go-live-checklist)
+- [10. Troubleshooting](#10-troubleshooting)
    - [A. Nexi payment option is missing at checkout](#a-nexi-payment-option-is-missing-at-checkout)
    - [B. Nexi payment window is blank](#b-nexi-payment-window-is-blank)
    - [C. Payments in live mode don't work](#c-payments-in-live-mode-dont-work)
-- [10. See also](#10-see-also)
+- [11. See also](#11-see-also)
 
 ## 1. Before you start
 
@@ -44,6 +45,7 @@ Depending on your country or region, the list may vary. If you are uncertain abo
 - Multistore support
 - Automatic webhook synchronization of payment events
 - Capture, partial capture, refund, partial refund, and cancel actions from order admin
+- Full capture of up to 20 reserved Nexi payments in one bulk action
 - Payment method splitting (show one combined Nexi option or separate payment options)
 
 ## 4. Installation
@@ -101,13 +103,41 @@ Both integration keys can be found in the Checkout Portal. See the following pag
 - [Where can I find my merchant number (merchant ID)?](https://developer.nexigroup.com/nexi-checkout/en-EU/support/where-can-i-find-my-merchant-number-merchant-id/)
 - [Access your integration keys](https://developer.nexigroup.com/nexi-checkout/en-EU/docs/access-your-integration-keys/)
 
-## 6. Payment method splitting
+## 6. Bulk capture
+
+Bulk capture lets an administrator fully capture multiple reserved Nexi payments from the PrestaShop order list. A maximum of 20 orders can be processed in one bulk action.
+
+### Eligible payments
+
+An order is eligible when:
+
+- It is associated with a Nexi Checkout payment.
+- Its PrestaShop status is `Payment Accepted (Nexi Checkout)`.
+- The Nexi payment status is `Reserved`.
+- The order belongs to the current PrestaShop shop context.
+
+Orders with any other PrestaShop or Nexi payment status are skipped and reported as not eligible.
+
+### Submit a bulk capture
+
+1. In PrestaShop Admin, go to `Orders > Orders`.
+2. Select up to 20 orders using the checkboxes in the order list.
+3. Open the `Bulk actions` menu and select `Capture Nexi payments`.
+4. Confirm the operation.
+
+The operation runs synchronously and continues processing the selection if an individual order cannot be captured. After processing, PrestaShop displays separate notices for submitted, skipped, and failed orders. Failed notices include the affected order IDs.
+
+The order status is not changed when the request is submitted. A successful Nexi webhook moves the order to the fully charged status, while a failed request leaves the existing status unchanged.
+
+In a multistore installation, the module uses the Nexi configuration for each order's shop. All selected orders must be accessible from the active shop context.
+
+## 7. Payment method splitting
 When enabled, each payment method appears as a separate option at checkout. When disabled, all methods are shown in a single Nexi Checkout option.
 
 1. On the configuration screen, toggle the `Payment method splitting` switch to `Yes`
 2. Enable and rearrange desired payment methods by dragging and dropping them using the icon on the left ![dots icon](./images/splitPaymentIcon.png).
 
-## 7. Klarna
+## 8. Klarna
 
 For Klarna to appear correctly in the Nexi Group payment window, the customer’s phone number must be collected during checkout.
 
@@ -118,7 +148,7 @@ In PrestaShop, the phone number field is part of the customer address form, but 
 
 To learn more, visit the PrestaShop documentation.
 
-## 8. Go live checklist
+## 9. Go live checklist
 
 Use this checklist before enabling Live mode:
 - Test mode transaction works end-to-end
@@ -129,7 +159,7 @@ Use this checklist before enabling Live mode:
 
 For more information, refer to the section [Go-live checklist](https://developer.nexigroup.com/nexi-checkout/en-EU/docs/go-live-checklist/).
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 Below are some of the most common configuration errors, their cause, and steps that you can follow to solve them.
 
@@ -151,7 +181,7 @@ Check:
 - Ensure your Live Checkout account is approved for payments with the selected currency.
 - Ensure payment method data is correct and supported by your Checkout agreement.
 
-## 10. See also
+## 11. See also
 - [Create account](https://developer.nexigroup.com/nexi-checkout/en-EU/docs/create-a-checkout-portal-account/)
 - [Test payment data](https://developer.nexigroup.com/nexi-checkout/en-EU/docs/test-data/)
 - [Test environment](https://developer.nexigroup.com/nexi-checkout/en-EU/docs/test-environment/)

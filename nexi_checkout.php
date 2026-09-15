@@ -25,6 +25,7 @@ use Nexi\Checkout\Hook\ActionListMailThemesHandler;
 use Nexi\Checkout\Hook\AppScriptTagsRenderer;
 use Nexi\Checkout\Hook\DisplayAdminOrderMainRenderer;
 use Nexi\Checkout\Hook\NexiCheckoutScriptTagsRenderer;
+use Nexi\Checkout\Hook\OrderGridDefinitionModifier;
 use Nexi\Checkout\Hook\PaymentOptions;
 use Nexi\Checkout\Install\ConfigurationInstaller;
 use Nexi\Checkout\Install\CustomOrderStateInstaller;
@@ -121,6 +122,13 @@ class Nexi_Checkout extends PaymentModule
         $renderer = SymfonyContainer::getInstance()->get(AppScriptTagsRenderer::class);
 
         return $renderer->render($this->getPathUri(), $this->context->controller->controller_name);
+    }
+
+    public function hookActionOrderGridDefinitionModifier(array $params): void
+    {
+        /** @var OrderGridDefinitionModifier $modifier */
+        $modifier = SymfonyContainer::getInstance()->get(OrderGridDefinitionModifier::class);
+        $modifier->modify($params);
     }
 
     public function hookDisplayPaymentTop(): string

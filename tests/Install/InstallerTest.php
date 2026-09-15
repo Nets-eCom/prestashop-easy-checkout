@@ -23,7 +23,7 @@ class InstallerTest extends TestCase
         $installer = new Installer($mockStep1, $mockStep2);
 
         $result = $installer->install();
-        self::assertTrue($result);
+        $this->assertTrue($result);
     }
 
     public function testInstallFailureWhenOneStepReturnsFalse(): void
@@ -45,6 +45,6 @@ class InstallerTest extends TestCase
         $installer = new Installer($mockStep1, $mockStep2, $mockStep3);
 
         $result = $installer->install();
-        self::assertFalse($result);
+        $this->assertFalse($result);
     }
 }

@@ -20,12 +20,38 @@
 
 declare(strict_types=1);
 
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+namespace Nexi\Checkout\Order;
 
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
-header('Location: ../');
-exit;
+final readonly class BulkCaptureResult
+{
+    /**
+     * @param list<int> $capturedOrderIds
+     * @param list<int> $skippedOrderIds
+     * @param list<int> $failedOrderIds
+     */
+    public function __construct(
+        private array $capturedOrderIds,
+        private array $skippedOrderIds,
+        private array $failedOrderIds,
+    ) {
+    }
+
+    public function getCapturedOrderIds(): array
+    {
+        return $this->capturedOrderIds;
+    }
+
+    public function getSkippedOrderIds(): array
+    {
+        return $this->skippedOrderIds;
+    }
+
+    public function getFailedOrderIds(): array
+    {
+        return $this->failedOrderIds;
+    }
+}

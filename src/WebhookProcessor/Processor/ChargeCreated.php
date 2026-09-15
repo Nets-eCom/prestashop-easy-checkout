@@ -110,7 +110,6 @@ final readonly class ChargeCreated implements WebhookProcessorInterface
         $paymentCharges = $payment->getCharges();
         $charges = [];
         foreach ($paymentCharges as $charge) {
-            /* @var Charge $charge */
             $charges[$charge->getChargeId()] = $this->chargeDataNormalizer->normalizeChargeData($charge);
         }
 
