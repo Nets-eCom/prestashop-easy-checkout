@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\DeadCode\Rector\ClassMethod\RemoveParentDelegatingClassMethodRector;
 use Rector\Set\ValueObject\LevelSetList;
 
 return RectorConfig::configure()
@@ -28,4 +29,7 @@ return RectorConfig::configure()
     ->withSkip([
         __DIR__ . '/vendor',
         __DIR__ . '/views/templates',
+        RemoveParentDelegatingClassMethodRector::class => [
+            __DIR__ . '/src/Adapter/WebhookBuilderAdapter.php',
+        ],
     ]);

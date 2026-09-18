@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace Nexi\Checkout\Adapter;
 
 use NexiCheckout\Model\Webhook\WebhookBuilder;
+use NexiCheckout\Model\Webhook\WebhookInterface;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -30,4 +31,8 @@ if (!defined('_PS_VERSION_')) {
 
 class WebhookBuilderAdapter extends WebhookBuilder
 {
+    public static function fromJson(string $string): WebhookInterface
+    {
+        return parent::fromJson($string);
+    }
 }
