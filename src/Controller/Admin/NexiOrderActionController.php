@@ -158,7 +158,7 @@ class NexiOrderActionController extends PrestaShopAdminController
             return $this->redirectToRoute('admin_orders_index');
         }
 
-        $orderIds = array_map(intval(...), $request->request->all('order_orders_bulk'));
+        $orderIds = array_map(fn ($id) => (int) $id, $request->request->all('order_orders_bulk'));
         $orderIds = array_values(array_unique(array_filter(
             $orderIds,
             fn (int $orderId): bool => $orderId > 0

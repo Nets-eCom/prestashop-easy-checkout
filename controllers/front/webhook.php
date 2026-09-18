@@ -95,7 +95,6 @@ class Nexi_CheckoutWebhookModuleFrontController extends ModuleFrontController
         }
 
         try {
-            /** @phpstan-ignore-next-line */
             $webhook = WebhookBuilderAdapter::fromJson($content);
         } catch (Throwable $throwable) {
             $this->logger->critical(
