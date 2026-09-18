@@ -54,7 +54,7 @@ class Nexi_Checkout extends PaymentModule
 
     public function __construct()
     {
-        $this->version = '2.2.0';
+        $this->version = '2.2.1';
         $this->name = 'nexi_checkout';
         $this->module_key = '9df9540a2ed3dca1ac462cb88bc38ada';
         $this->displayName = $this->trans('Nexi Checkout', [], 'Modules.Nexicheckout.Install');
