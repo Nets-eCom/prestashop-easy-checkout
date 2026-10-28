@@ -15,10 +15,11 @@ services:
 
   Nexi\Checkout\:
     resource: '../src/*'
-    exclude: 
+    exclude:
       - '../src/{Install,Uninstall,Entity,Repository,Event,*/Exception,Administration/Model,WebhookProcessor}/'
       - '../src/Order/OrderCreate.php'
       - '../src/Order/BulkCaptureResult.php'
+      - '../src/Mcp/*'
       - '../src/**/index.php'
 
   Nexi\Checkout\Controller\Admin\NexiOrderActionController:

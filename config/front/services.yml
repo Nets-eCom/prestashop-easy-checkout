@@ -130,4 +130,38 @@ services:
       - '@doctrine.orm.default_entity_manager'
       - '@nexi_checkout.dispatcher'
 
+  # MCP
+  Nexi\Checkout\Mcp\Service\PaymentDetailsProvider: ~
 
+  Nexi\Checkout\RequestBuilder\ChargeRequest: ~
+
+  Nexi\Checkout\RequestBuilder\RefundRequest: ~
+
+  Nexi\Checkout\RequestBuilder\CancelRequest: ~
+
+  Nexi\Checkout\Order\Checker\PaymentChargeabilityChecker: ~
+
+  Nexi\Checkout\Mcp\Service\PaymentActionService:
+    arguments:
+      $orderCharge: '@nexi_checkout.mcp.order_charge'
+      $orderRefund: '@nexi_checkout.mcp.order_refund'
+      $orderCancel: '@nexi_checkout.mcp.order_cancel'
+
+  nexi_checkout.mcp.order_charge:
+    class: Nexi\Checkout\Order\OrderCharge
+    arguments:
+      $dispatcher: '@nexi_checkout.dispatcher'
+      $entityManager: '@doctrine.orm.default_entity_manager'
+      $logger: '@nexi_checkout.logger'
+
+  nexi_checkout.mcp.order_refund:
+    class: Nexi\Checkout\Order\OrderRefund
+    arguments:
+      $entityManager: '@doctrine.orm.default_entity_manager'
+      $logger: '@nexi_checkout.logger'
+
+  nexi_checkout.mcp.order_cancel:
+    class: Nexi\Checkout\Order\OrderCancel
+    arguments:
+      $dispatcher: '@nexi_checkout.dispatcher'
+      $logger: '@nexi_checkout.logger'

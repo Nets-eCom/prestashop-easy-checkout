@@ -33,6 +33,7 @@ use Nexi\Checkout\Hook\PaymentOptions;
 if (!defined('_PS_VERSION_')) {
     exit;
 }
+
 class HookInstaller implements InstallStepInterface
 {
     public function __construct(private readonly \Nexi_Checkout $module)

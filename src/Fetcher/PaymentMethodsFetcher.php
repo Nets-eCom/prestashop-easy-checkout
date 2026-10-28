@@ -32,6 +32,7 @@ use Psr\Log\LoggerInterface;
 if (!defined('_PS_VERSION_')) {
     exit;
 }
+
 class PaymentMethodsFetcher implements PaymentMethodsFetcherInterface
 {
     private const PAYMENT_TYPE_CARD = 'Card';
@@ -57,7 +58,7 @@ class PaymentMethodsFetcher implements PaymentMethodsFetcherInterface
         $paymentApi = $this->paymentApiProvider->createPaymentApi();
 
         try {
-            $paymentMethodsResult = $paymentApi->getPaymentMethods(new PaymentMethods($currency, true, null));
+            $paymentMethodsResult = $paymentApi->getPaymentMethods(new PaymentMethods($currency, true));
         } catch (PaymentApiException $e) {
             $this->logger->error('Failed to fetch payment methods from Nexi API: ' . $e->getMessage());
 

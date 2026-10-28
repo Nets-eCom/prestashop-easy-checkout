@@ -31,6 +31,7 @@ Enhance your Prestashop store with the Nexi Checkout, a comprehensive solution f
 - Automatic webhook synchronisation of payment events
 - Full capture of up to 20 reserved Nexi payments in one bulk action
 
+
 ## Customer Service
 
 Nexi provides support for both test and live accounts. For assistance, visit our [Support Page](https://developer.nexigroup.com/nexi-checkout/en-EU/support/).
@@ -41,6 +42,8 @@ Nexi provides support for both test and live accounts. For assistance, visit our
 
 ### Documentation
 For complete documentation, visit our [GitHub docs](https://github.com/Nets-eCom/prestashop-easy-checkout/tree/main/docs).
+
+- [MCP payment tools](docs/mcp.md): setup and usage with AI clients.
 
 ### Setup
 In order to setup plugin from source code you need to:

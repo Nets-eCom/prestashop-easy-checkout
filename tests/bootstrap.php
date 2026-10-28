@@ -215,6 +215,7 @@ namespace {
                     public $id_shop = 1;
                     public $current_state = 0;
                     public function __construct($id = null) { $this->id = $id; }
+                    public function getOrderPaymentCollection() { return []; }
                     public function getCurrentState() { return $this->current_state; }
                     public function setCurrentState($stateId) { $this->current_state = $stateId; }
                 ',

@@ -98,6 +98,11 @@ class Nexi_Checkout extends PaymentModule
         return $uninstaller->uninstall();
     }
 
+    public function isMcpCompliant(): bool
+    {
+        return true;
+    }
+
     public function isUsingNewTranslationSystem(): bool
     {
         return true;

@@ -8,6 +8,9 @@ use Rector\Set\ValueObject\LevelSetList;
 use Rector\TypeDeclaration\Rector\ArrowFunction\AddArrowFunctionReturnTypeRector;
 
 return RectorConfig::configure()
+    ->withBootstrapFiles([
+        __DIR__ . '/rector-bootstrap.php',
+    ])
     ->withPaths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
@@ -28,6 +31,7 @@ return RectorConfig::configure()
     ->withImportNames(importNames: true, importShortClasses: false)
 
     ->withSkip([
+        __DIR__ . '/tests/rector/stubs',
         __DIR__ . '/vendor',
         __DIR__ . '/views/templates',
         RemoveParentDelegatingClassMethodRector::class => [
