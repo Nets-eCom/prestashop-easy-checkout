@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassMethod\RemoveParentDelegatingClassMethodRector;
 use Rector\Set\ValueObject\LevelSetList;
+use Rector\Symfony\CodeQuality\Rector\Class_\EventSubscriberToAttributeRector;
 use Rector\TypeDeclaration\Rector\ArrowFunction\AddArrowFunctionReturnTypeRector;
 
 return RectorConfig::configure()
@@ -34,6 +35,7 @@ return RectorConfig::configure()
         __DIR__ . '/tests/rector/stubs',
         __DIR__ . '/vendor',
         __DIR__ . '/views/templates',
+        EventSubscriberToAttributeRector::class,
         RemoveParentDelegatingClassMethodRector::class => [
             __DIR__ . '/src/Adapter/WebhookBuilderAdapter.php',
         ],
