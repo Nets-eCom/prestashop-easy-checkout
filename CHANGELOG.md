@@ -4,11 +4,14 @@
 |------|----------
 |Author | `Nets eCom`
 |Shop Version | `9+`
-|Version | `2.3.0`
+|Version | `2.3.1`
 |Guide | https://developer.nexigroup.com/nexi-checkout/en-EU/docs/checkout-for-prestashop-prestashop/
 |Github | https://github.com/Nets-eCom/prestashop-easy-checkout
 
 ## CHANGELOG
+### Version 2.3.1 - Released 2026-11-05
+- fix: empty product reference falls back to id_product
+
 ### Version 2.3.0 - Released 2026-10-28
 - feat: support MCP admin actions
 
