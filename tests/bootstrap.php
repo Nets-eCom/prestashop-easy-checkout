@@ -233,7 +233,19 @@ namespace {
                 'methods' => 'public $name; public $displayName;',
             ],
             'Customer' => [],
-            'Cart' => [],
+            'Cart' => [
+                'methods' => '
+                    const ONLY_SHIPPING = 2;
+                    const BOTH = 3;
+                    public $id = 0;
+                    public $gift = false;
+                    public $id_carrier = 0;
+                    public function getProducts($refresh = false) { return []; }
+                    public function getOrderTotal($withTaxes = true, $type = self::BOTH, $products = null, $id_carrier = null, $use_cache = true) { return 0.0; }
+                    public function getDiscountSubtotalWithoutGifts() { return 0.0; }
+                    public function getGiftWrappingPrice($with_taxes = true) { return 0.0; }
+                ',
+            ],
             'Shop' => [
                 'methods' => '
                     public $id = 1;

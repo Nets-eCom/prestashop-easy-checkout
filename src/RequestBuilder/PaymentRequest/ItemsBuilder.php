@@ -109,7 +109,7 @@ class ItemsBuilder
             ? $this->priceToInt($taxAmount / $unitPrice)
             : 0;
 
-        $reference = $product['reference'] ?? (string) $product['id_product'];
+        $reference = $product['reference'] ?: (string) $product['id_product'];
 
         return new Item(
             $this->sanitize($product['name']),
@@ -141,7 +141,7 @@ class ItemsBuilder
             ? $this->priceToInt($taxAmount / $unitPrice)
             : 0;
 
-        $reference = $product['reference'] ?? (string) $product['id_product'];
+        $reference = $product['reference'] ?: (string) $product['id_product'];
 
         return new Item(
             $this->sanitize($product['product_name']),
