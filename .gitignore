@@ -4,3 +4,5 @@ js/node_modules
 .php-cs-fixer.cache
 .phpunit.result.cache
 Makefile.local
+views/js/app.js
+views/js/chunk-vendors.js
